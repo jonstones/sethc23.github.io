@@ -1,26 +1,148 @@
-# Site settings
-title: HyG
-email: gaohaoyang126@126.com
-description: 浩阳的博客 前端爱好者
-# > # this means to ignore newlines until "baseurl:"
-#   Write an awesome description for your new site here. You can edit this
-#   line in _config.yml. It will appear in your document head meta (for
-#   Google search results) and in your feed.xml site description.
 
-# baseurl: "" # the subpath of your site, e.g. /blog/
-# url: "http://yourdomain.com" # the base hostname & protocol for your site
-# twitter_username: jekyllrb
-github_username:  Gaohaoyang
-permalink: /:year/:month/:day/:title/
+# GLOBAL CONFIGURATIONS
 
-# Build settings
-markdown: kramdown
+# BUILD COMMAND OPTS:
+#   -w, --[no-]watch        # watch for changes
+#   --config FILE1[,FILE2,...]
+#   --drafts                # Process and render draft posts.
+#   --future                #Publish posts with a future date.
+#   --lsi                   # Produce an index for related posts.
+#   --limit_posts NUM       # Limit the number of posts to parse and publish.
+#   --force_polling         # Force watch to use polling.
+#   -V, --verbose
+#   -q, --quiet
 
-paginate: 10
-paginate_path: "page:num"
 
+# SERVE COMMAND OPTS:
+#   --port PORT
+#   --host HOSTNAME          # Listen at the given hostname.
+#   --baseurl                # URL Serve the website from the given base URL
+#   -B, --detach             # Detach the server from the terminal
+#   --skip-initial-build     # Skips the initial site build which occurs before the server is started.
+
+
+# FRONT MATTER
+#permalink
+#published
+#category
+#categories
+#tags
+defaults:
+  -
+    scope:
+      path:                     "posts"
+      type:                     "posts"
+    values:
+      layout:                   "post"
+      author:                   "sethc23"
+  -
+    scope:
+      path:                     "projects"
+      type:                     "pages"
+    values:
+      layout:                   "project"   # overrides previous default layout
+      author:                   "sethc23"
+
+
+# DEFAULT SETTINGS
+# Where things are
+#source:                         ./
+destination:                    ./_site
+plugins_dir:                    ./_plugins
+layouts_dir:                    ./_layouts
+data_dir:                       ./_data
+includes_dir:                   ./_includes
+#collections:                    null
+
+# Handling Reading
+safe:                           false
+include:                        [".htaccess"]
+exclude:                        []
+keep_files:                     [".git", ".svn"]
+encoding:                       "utf-8"
+markdown_ext:                   "markdown,mkdown,mkdn,mkd,md"
+
+# Filtering Content
+#show_drafts:                    null
+#limit_posts:                    0
+#future:                         false
+#unpublished:                    false
+
+# Plugins
+#whitelist:                      []
+#gems:                           []
+
+# Conversion
+markdown:                       kramdown
+highlighter:                    pygments    # rouge
 # highlight
 # 本地用rouge, github上用pygments
 # highlighter: pygments
 # highlighter: rouge
 # highlighter: false
+lsi:                            false
+excerpt_separator:              "\n\n"
+
+# Serving
+detach:                         false
+port:                           8901
+host:                           0.0.0.0
+baseurl:                        ""          # does not include hostname
+
+# Outputting
+#permalink:                      date
+permalink:                      /:year/:month/:day/:title/
+#paginate_path:                  /page:num
+paginate:                       10
+paginate_path:                  "page:num"
+timezone:                       America/New_York
+
+quiet:                          false
+defaults:                       []
+
+# Markdown Processors
+rdiscount:
+  extensions:                   []
+
+redcarpet:
+  extensions:                   []
+
+kramdown:
+#  input:                        GFM
+  auto_ids:                     true
+  footnote_nr:                  1
+  entity_output:                as_char
+  toc_levels:                   1..6
+  smart_quotes:                 lsquo,rsquo,ldquo,rdquo
+  enable_coderay:               false
+
+  coderay:
+    coderay_wrap:               div
+    coderay_line_numbers:       inline
+    coderay_line_number_start:  1
+    coderay_tab_width:          4
+    coderay_bold_every:         10
+    coderay_css:                style
+
+# ------------------------------
+# ------------------------------
+
+#github:                         [Repository metadata]
+title:                          site.github.owner_name
+email:                          site.github.owner_name"@users.noreply.github.com"
+url:                            site.github.owner_url
+github_username:                site.github.owner_name
+
+# Social Media
+github_url:                     site.github.owner_url
+linkedin_url:                   "https://www.linkedin.com/pub/seth-t-chase/16/454/724"
+facebook_url:                   "https://www.facebook.com/public/Seth-Chase"
+# twitter_url:                    ""
+# google_plus_url:                ""
+# stack_exchange_url:             ""
+# stack_overflow_url:             ""
+
+
+
+
+#

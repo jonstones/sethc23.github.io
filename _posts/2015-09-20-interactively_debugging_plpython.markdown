@@ -1,0 +1,49 @@
+---
+title: Interactively Debugging PL/Python (in postgres)
+layout: post
+---
+## Bird's Eye View -- Use an IDE (PyCharm, WingIDE, Eclipse, etc..):
+```python
+import sys
+sys.path.append('/usr/local/lib/python2.7/dist-packages/pycharm-debug.egg')
+import pydevd
+pydevd.settrace('10.0.1.53', port=50003, stdoutToServer=True, stderrToServer=True)
+```
+
+
+## Granular Control & Active Dev. -- iPython and ipdb
+
+#### Embed iPython kernel in script (e.g., immediately preceeding a function `f(x)`)
+```python
+import IPython as I
+I.embed_kernel()
+```
+
+#### Then put ipdb tracer(s) after kernel call (i.e., within `f(x)`)
+```python
+import ipdb
+ipdb.set_trace()
+```
+
+#### Execute PL/Pythonu/Python code
+```PLpgSQL
+DO LANGUAGE PLPYTHONU
+$BODY$
+import sys
+sys.path.append('/home/ubuntu/tmp.py')
+import tmp
+reload(tmp)             # resets pgsql cache
+tmp.do_something(plpy)  # note plpy as arg
+$BODY$;
+```
+If executing the above via command-line (e.g., sqlalchemy, pandas), standard out may provide the `connect with --existing kernel-{kernel pid}.json` iPython message.  If not, check the newest iPython process `ps -awx | grep ipython`, or check the directory below (or a similar path).
+
+#### Connect to kernel
+```bash
+sudo su postgres
+cd /var/lib/postgresql/.local/share/jupyter/runtime
+# last bit below assumes a clean runtime directory
+ipython console --existing kernel-* && rm *
+```
+
+#### Call `f(x)` and ipdb debug
