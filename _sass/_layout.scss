@@ -1,14 +1,19 @@
+
+*{
+    font-family: Consolas,'Microsoft YaHei', 'SimHei', sans-serif;
+}
+
 /**
  * Site header
  */
-.site-header {
+/*.site-header {
     border-top: 5px solid $grey-color-dark;
     border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
     position: relative;
-}
+}*/
 
 .site-title {
     font-size: 26px;
@@ -101,16 +106,10 @@
     margin-bottom: $spacing-unit / 2;
 }
 
-.contact-list{
-    list-style: none;
-    margin-left: 0;
-    float: left;
-}
-
+.contact-list,
 .social-media-list {
     list-style: none;
     margin-left: 0;
-    float: right;
 }
 
 .footer-col-wrapper {
@@ -139,7 +138,6 @@
 .footer-col-3 {
     width: -webkit-calc(45% - (#{$spacing-unit} / 2));
     width:         calc(45% - (#{$spacing-unit} / 2));
-    float: right;
 }
 
 @include media-query($on-laptop) {

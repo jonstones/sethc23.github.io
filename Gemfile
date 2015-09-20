@@ -1,1 +1,2 @@
-gem 'github-pages', :branch => 'master', :git => 'git://github.com/github/pages-gem'
+source 'https://rubygems.org'
+gem 'github-pages'
