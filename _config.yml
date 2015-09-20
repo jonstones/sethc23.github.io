@@ -30,14 +30,14 @@
 defaults:
   -
     scope:
-      path:                     "posts"
+      path:                     "_posts"
       type:                     "posts"
     values:
       layout:                   "post"
       author:                   "sethc23"
   -
     scope:
-      path:                     "projects"
+      path:                     "_projects"
       type:                     "pages"
     values:
       layout:                   "project"   # overrides previous default layout
@@ -127,16 +127,16 @@ kramdown:
 # ------------------------------
 # ------------------------------
 
-#github:                         [Repository metadata]
-title:                          site.github.owner_name
-email:                          site.github.owner_name"@users.noreply.github.com"
-url:                            site.github.owner_url
-github_username:                site.github.owner_name
-
-# Social Media
-github_url:                     site.github.owner_url
-linkedin_url:                   "https://www.linkedin.com/pub/seth-t-chase/16/454/724"
-facebook_url:                   "https://www.facebook.com/public/Seth-Chase"
+github:                         [Repository metadata]
+#title:                          site.github.owner_name
+#email:                          site.github.owner_name"@users.noreply.github.com"
+#url:                            site.github.owner_url
+#github_username:                site.github.owner_name
+#
+## Social Media
+#github_url:                     site.github.owner_url
+#linkedin_url:                   "https://www.linkedin.com/pub/seth-t-chase/16/454/724"
+#facebook_url:                   "https://www.facebook.com/public/Seth-Chase"
 # twitter_url:                    ""
 # google_plus_url:                ""
 # stack_exchange_url:             ""
