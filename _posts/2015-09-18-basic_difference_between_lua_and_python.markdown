@@ -66,7 +66,7 @@ print(b.balance)    --> 0
 
 ####  A Cost
 
-[Multiple inheritance](http://www.lua.org/pil/16.3.html) can increase access overhead, but, tricks like this short-circuiting access points and keep costs low:
+[Multiple inheritance](http://www.lua.org/pil/16.3.html) can increase access-overhead, but, tricks like this short-circuiting access points and keep costs low:
 
 ```lua
 setmetatable(c, {__index = function (t, k)
