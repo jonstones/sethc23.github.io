@@ -66,3 +66,8 @@ code {
     background-color: #E4DFDF;
     border-radius: 4px;
 }
+
+mark {
+    color: #000;
+    background: #4C6B39;
+}
