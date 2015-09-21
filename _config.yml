@@ -1,4 +1,18 @@
 
+# Site settings
+title: sethc23
+email: sethc23@users.noreply.github.com
+#description:          # THIS COULD/SHOULD BE OCCUPATION DESCRIPTOR
+baseurl: ""
+url: "http://sethc23.github.io"
+github_username:  sethc23
+
+# Social Media
+github_url: "https://github.com/sethc23"
+linkedin_url: "https://www.linkedin.com/pub/seth-t-chase/16/454/724"
+facebook_url: "https://www.facebook.com/public/Seth-Chase"
+
+
 # GLOBAL CONFIGURATIONS
 
 # BUILD COMMAND OPTS:
@@ -47,20 +61,20 @@ defaults:
 # DEFAULT SETTINGS
 # Where things are
 #source:                         ./
-destination:                    ./_site
-plugins_dir:                    ./_plugins
-layouts_dir:                    ./_layouts
-data_dir:                       ./_data
-includes_dir:                   ./_includes
+#destination:                    ./_site
+#plugins_dir:                    ./_plugins
+#layouts_dir:                    ./_layouts
+#data_dir:                       ./_data
+#includes_dir:                   ./_includes
 #collections:                    null
 
 # Handling Reading
-safe:                           false
-include:                        [".htaccess"]
-exclude:                        []
-keep_files:                     [".git", ".svn"]
-encoding:                       "utf-8"
-markdown_ext:                   "markdown,mkdown,mkdn,mkd,md"
+#safe:                           false
+#include:                        [".htaccess"]
+#exclude:                        []
+#keep_files:                     [".git", ".svn"]
+#encoding:                       "utf-8"
+#markdown_ext:                   "markdown,mkdown,mkdn,mkd,md"
 
 # Filtering Content
 #show_drafts:                    null
@@ -84,10 +98,10 @@ lsi:                            false
 excerpt_separator:              "\n\n"
 
 # Serving
-detach:                         false
+#detach:                         false
 port:                           8901
-host:                           0.0.0.0
-baseurl:                        ""          # does not include hostname
+#host:                           0.0.0.0
+#baseurl:                        ""          # does not include hostname
 
 # Outputting
 #permalink:                      date
@@ -127,7 +141,7 @@ kramdown:
 # ------------------------------
 # ------------------------------
 
-github:                         [Repository metadata]
+#github:                         [Repository metadata]
 #title:                          site.github.owner_name
 #email:                          site.github.owner_name"@users.noreply.github.com"
 #url:                            site.github.owner_url
@@ -142,7 +156,3 @@ github:                         [Repository metadata]
 # stack_exchange_url:             ""
 # stack_overflow_url:             ""
 
-
-
-
-#
