@@ -1516,8 +1516,8 @@ samp {
 code {
   padding: 2px 4px;
   font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
+  color: #D95D18;
+  background-color: #E4DFA0;
   border-radius: 4px;
 }
 kbd {
@@ -6269,8 +6269,6 @@ button.close {
     bottom: 20px;
   }
 }
-.clearfix:before,
-.clearfix:after,
 .dl-horizontal dd:before,
 .dl-horizontal dd:after,
 .container:before,
@@ -6302,7 +6300,6 @@ button.close {
   display: table;
   content: " ";
 }
-.clearfix:after,
 .dl-horizontal dd:after,
 .container:after,
 .container-fluid:after,

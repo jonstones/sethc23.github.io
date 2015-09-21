@@ -2,6 +2,7 @@
 # Site settings
 title: sethc23
 email: sethc23@users.noreply.github.com
+emailtext: sethc23
 #description:          # THIS COULD/SHOULD BE OCCUPATION DESCRIPTOR
 baseurl: ""
 url: "http://sethc23.github.io"
@@ -87,7 +88,7 @@ defaults:
 #gems:                           []
 
 # Conversion
-markdown:                       kramdown
+markdown:                       redcarpet
 highlighter:                    pygments    # rouge
 # highlight
 # 本地用rouge, github上用pygments
@@ -119,7 +120,9 @@ rdiscount:
   extensions:                   []
 
 redcarpet:
-  extensions:                   []
+  extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough", "with_toc_data",
+                                 "space_after_headers","superscript","underline","highlight","footnotes",
+                                 "with_toc_data","prettify"]
 
 kramdown:
 #  input:                        GFM
