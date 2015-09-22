@@ -1,7 +1,7 @@
 ---
 title: Interactive-Debugging of PL/Python
-comment: true
 layout: post
+comments: true
 ---
 #### Use an IDE (PyCharm, WingIDE, Eclipse, etc..):
 ```python
