@@ -68,10 +68,6 @@ facebook_url: "https://www.facebook.com/public/Seth-Chase"
 #future:                         false
 #unpublished:                    false
 
-# Plugins
-#whitelist:                      []
-#gems:                           []
-
 # Conversion
 markdown:                       redcarpet
 highlighter:                    pygments    # rouge
