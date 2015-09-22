@@ -42,21 +42,6 @@ facebook_url: "https://www.facebook.com/public/Seth-Chase"
 #category
 #categories
 #tags
-defaults:
-  -
-    scope:
-      path:                     "_posts"
-      type:                     "posts"
-    values:
-      layout:                   "post"
-      author:                   "sethc23"
-  -
-    scope:
-      path:                     "_projects"
-      type:                     "pages"
-    values:
-      layout:                   "project"   # overrides previous default layout
-      author:                   "sethc23"
 
 
 # DEFAULT SETTINGS
@@ -100,7 +85,7 @@ excerpt_separator:              "\n\n"
 
 # Serving
 #detach:                         false
-port:                           8901
+port:                           28901
 #host:                           0.0.0.0
 baseurl:                        ""          # does not include hostname
 

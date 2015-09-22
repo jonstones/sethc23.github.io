@@ -1,4 +1,6 @@
 
+# TODO: add comment feature
+
 
 cd $BD/blog
 

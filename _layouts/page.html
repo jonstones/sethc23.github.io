@@ -10,10 +10,20 @@ layout: default
         {{ content }}
     </article>
 </div>
-<div class="post-area post comment">
-    <!-- 多说评论框 start -->
-    
-    <div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ site.url }}{{ page.url }}"></div>
-    
-    <!-- 多说评论框 end -->
-</div>
+{% if page.comments %}
+    <div class="post-area post comment">
+        <!--<div class="ds-thread"-->
+        <!--data-thread-key="{{ page.id }}"-->
+        <!--data-title="{{ page.title }}"-->
+        <!--data-url="{{ site.baseurl }}{{ page.url }}"></div>-->
+        {% include disqus.html %}
+    </div>
+{% endif %}
+
+<!--<div class="post-area post comment">-->
+    <!--&lt;!&ndash; 多说评论框 start &ndash;&gt;-->
+    <!---->
+    <!--<div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="{{ site.url }}{{ page.url }}"></div>-->
+    <!---->
+    <!--&lt;!&ndash; 多说评论框 end &ndash;&gt;-->
+<!--</div>-->

@@ -1,6 +1,7 @@
 ---
 title: How Lua compares with Object-Oriented languages like Python
 layout: post
+comments: true
 ---
 #### [The essence of Lua](http://www.lua.org/pil/16.html):
 
