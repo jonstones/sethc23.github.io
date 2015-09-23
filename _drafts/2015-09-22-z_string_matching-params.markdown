@@ -1,78 +1,293 @@
 ---
-title: pgSQL f(x) z_string_matching
+title: string_matching
 layout: post
+categories: pgxz,function definition
 ---
 
-## UPDATE LINK IN COMMENTS
+## TODO -- UPDATE LINK IN COMMENTS
 
-> `z_string_matching(  qry_a text, qry_b text, with_permutations text  )`
+---
 
-The input querys A and B must provide the aliases (a_str, a_idx),(b_str, b_idx), respectively.
-
-For each a_str, this function finds the best matching b_str,
-    and returns (a_str, a_idx, jaro_score, b_str, b_idx, other_matching).
-"other_matching" provides the b_idx for other b_str having the same highest score.
-Avoid using "pllua_" as an a prefix for any alias within either qry_a or qry_b.
-
-"with_permutations" will make this function further consider all permutations of b_str
-    as split by any of the dividing character segment(s).
-    To consider permutations of b_str "one_two_three" (e.g., "two_one_three", etc...)
-        provide "_" or "_;" as the value for "with_permutations".
-    A ";" marks a break point between split characters.
-    For a single space, " ;" must be at beginning if at all.
-    For a single emi-colon, ";;" must be at the end if at all.
-    Default value for "with_permutations" is " ;-;_;/;\\;|;&;;"
-
-## Testing
-Is there any space between here and the above header?
+## pgxz.functions
 
 
-#### no_intra_emphasis
-emphasis _here_ and no_emphasis_here
+General functions for administering pgSQL and numerous other methods related to geospatial interests.
 
-#### tables
-| a | b | c
-|---|---|---
-| 1 | 2 | 3
-
-#### autolink
-whatismyip.com
-
-www.dairyqueen.com
-
-http://yesman.com
-
-http://www.sanspaper.com
-
-#### strikethrough
-this is ~~good~~ bad
-
-#### superscript
-this is the 2^(nd) time
-
-#### underline
-This is _underlined_ but this is still *italic*.
-
-#### highlight
-This is ==highlighted==
-
-#### footnotes
-For this comment[^1]
-[^1]: Here is a footnote.
-
-#### Prettify
->>  local t = _tbl.table_invert(tbl_in)
->>  local cnt = 1
->>  for k,v in pairs(t) do
->>  if v == _var then return cnt
->>  else cnt = cnt + 1 end
->>  end
-
-<code> local t = _tbl.table_invert(tbl_in) local cnt = 1 for k,v in pairs(t) do if v == _var then return cnt else cnt = cnt + 1 end end </code>
+- - -
 
 
-#### with_toc_data
-[Does this bring you back to the top?](#Testing)
+### ==pgxz.**string_matching**(*qry_a*, *qry_b*, *params_as_json*)==
+</br>
+#### _Methodology_:
 
 
-Features by Redcarpet; hosted @ Git Pages
+> For each `a_str`, this function finds the best matching `b_str`. This function utilizes the [Jaro-Winkler algorithm](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance), and provides additional fine-tuning paramitization for segmenting, sorting, partial matching, and ranking of all permutations therein.
+
+
+
+#### _Query Strings_: 
+
+This function returns a number between 0 and 1 quantifying the similarity between two *postgreSQL* search queries.  The input queries `qry_a` and `qry_b` must designate the aliases (`a_str`, `a_idx`) and (`b_str`, `b_idx`), respectively. For example:
+
+
+
+```PLpgSQL
+DROP TABLE IF EXISTS z_string_test_1;
+CREATE TABLE z_string_test_1 AS (
+    SELECT
+        ARRAY['MARTHA','DWAYNE','DIXON'] a_str,
+        ARRAY[1,2,3] a_idx,
+        ARRAY['DUANE','MARHTA','DICKSONX'] b_str,
+        ARRAY[2,3,4] b_idx
+);
+DROP TABLE IF EXISTS z_string_test_2;
+CREATE TABLE z_string_test_2 AS (
+    SELECT
+        UNNEST(a_str) a_str,
+        UNNEST(a_idx) a_idx,
+        UNNEST(b_str) b_str,
+        UNNEST(b_idx) b_idx
+    FROM z_string_test_1
+);
+```
+
+
+</br>
+
+
+```PLpgSQL
+SELECT * FROM z_string_matching(
+    'select a_str a_str,a_idx a_idx from z_string_test_2',
+    'select b_str b_str,b_idx b_idx from z_string_test_2',
+    'false'
+)
+```
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th></th>
+      <th>a_idx</th>
+      <th>a_str</th>
+      <th>jaro_score</th>
+      <th>b_str</th>
+      <th>b_idx</th>
+      <th>other_matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>MARTHA</td>
+      <td>0.94444444444444</td>
+      <td>MARHTA</td>
+      <td>3</td>
+      <td>{}</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>DWAYNE</td>
+      <td>0.82222222222222</td>
+      <td>DUANE</td>
+      <td>2</td>
+      <td>{}</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>DIXON</td>
+      <td>0.76666666666667</td>
+      <td>DICKSONX</td>
+      <td>4</td>
+      <td>{}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</br>
+
+
+```PLpgSQL
+SELECT * FROM z_string_matching(
+    'select unnest(a_str) a_str,unnest(a_idx) a_idx from z_string_test_1',
+    'select unnest(b_str) b_str,unnest(b_idx) b_idx from z_string_test_1',
+    ''
+)
+```
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th></th>
+      <th>a_idx</th>
+      <th>a_str</th>
+      <th>jaro_score</th>
+      <th>b_str</th>
+      <th>b_idx</th>
+      <th>other_matches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>MARTHA</td>
+      <td>0.94444444444444</td>
+      <td>MARHTA</td>
+      <td>3</td>
+      <td>{}</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>DWAYNE</td>
+      <td>0.82222222222222</td>
+      <td>DUANE</td>
+      <td>2</td>
+      <td>{}</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>DIXON</td>
+      <td>0.76666666666667</td>
+      <td>DICKSONX</td>
+      <td>4</td>
+      <td>{}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</br>
+Of further note:  
+
+1. `other_matches` is the index (i.e., `b_idx`) of the other `b_str` matches having the same best score.
+2. Avoid using **"pllua_"** as a prefix for any alias relating to `qry_a` or `qry_b`.
+
+
+</br>
+
+#### _Parameter String_:
+
+The `params_as_json` argument is either:
+
+- (a) the case-insensitive string **"false"**, or,
+- (b) a one dimensional JSON string.
+
+If a JSON string, it may comprise any combination of the below *Parameter List*.
+Some general points:
+
+- all keys and values of this JSON are strings enclosed with double quotes (and not two single quotes)
+- All boolean values are case insenstive.
+- first letter(s) matches >> last letter matches
+- string minimum length of 4
+
+
+*Parameter List*:
+<br>
+
+> _**`first_match_only`**_: Upon finding a `b_str` match for a particular `a_str` given the input criteria, stop further processing re: `a_str` and return the first-matched `b_str`.  This option often works well in conjunction with minimal iterative steps and high-score conditions to quickly extract the easy matches and minimize the number of future, more arduous, steps.
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+> _**`a_cols_as_prefix`**_[^1],
+> _**`a_cols_as_suffix`**_[^1], 
+> _**`iter_a_str_perms`**_[^1]: each of these is a string split by a semi-colon and made into a list that defines additional return columns in `qry_a`.  The *prefix* and *suffix* parameters define what set of strings, and in what order, will be concatenated with the base return column (i.e., `a_str`). The parameters `concat_str` and `div_str` (described next) define how the string set will be joined and split, respectively. If `iter_a_str_perms` equals **"true"** (case insensitive), then this function will attempt to evaluate permutations of character segments in `a_str`.
+See [String Permutation examples](#string-permutation-examples).
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+> _**`concat_str`**_,_**`div_str`**_:  These parameters define what characters are used to join or split column(s) into strings for comparison.
+For example, this function will evaluate permutations of "one-two-three" (e.g., "two-one-three", etc...) if `div_str` is `"-"` or includes `"-;"`.[^2]
+A semicolon (`";"`) marks a break point between segments of characters used to split a string (**"splitting segment"** hereinafter).
+
+
+- Multiple criteria of any non-zero length may constitute a splitting segment.
+- All splitting segment space(s) (e.g., `"   ;  ; ;"`) must be at the beginning of `div_str`.
+- Only single semi-colons can currently be used as splitting segments (e.g., `";;"`), and it must be put at the end of `div_str`.
+- The **default value for `div_str` is `" ;-;_;/;\\;|;&;;"`**
+
+See [String Manipulation examples](#string-manipulation-examples).
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+> _**`a_str_condition`**_[^1]: This parameter provides a mechanism for limiting the results of the input queries (e.g., `qry_a`).  When the input queries return, that is, the result that this function then score.
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+> _**`a_idx_condition`**_ : When `iter_a_str_perms` equals **"true"**, this condition is handy to minimize the iterations of `a_str` that are compared with every `b_str` result.
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+> _**`update_cond`**_:  This allows for fine-tuning when and what results are returned.
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+#### _Best Practices_:
+To make an analogy, this function is like classic American muscle car..
+goes pretty good in a straight line and when the path is clear but,
+hit a curve, and wheels start to spin, and things get ugly.
+
+This function works well when incrementally changing input parameters while
+adjusting result conditions in relation to the function's efficacy.
+
+Specifically, this function works well when wrapped in an iterative method evaluating:
+
+1. less but most unique data types/columns, high score conditions, first matches only
+2. less columns but segmentation and permutation, high score conditions, best match
+3. more data columns (sorted from most to least likely matching), high scores, best match
+<div class="horizontalgap" style="width:10px"></div>. 
+<div class="horizontalgap" style="width:10px"></div>. etc...
+<div class="horizontalgap" style="width:10px"></div>. 
+<div class="horizontalgap" style="width:10px"></div>. (until a some stop condition)
+
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+
+<br>
+
+#### _String Manipulation Examples_:
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+<br>
+
+#### _String Permutation Examples_:
+
+- ==[ ] implement==
+- ==[ ] finish note==
+
+
+<br>
+
+[^1]: This description relating to `qry_a` applies similarly to `qry_b`.
+
+[^2]: Lua regular expression [patterns](http://www.lua.org/manual/5.1/manual.html#5.4.1) are somewhat uncommon, and therefore, was not natively integrated.  For instance, (1) "or" logic does not exist (or did not exist when developing), (2) matching patterns cannot be quantified (e.g., "{n,}"), and (3) there is no mechanism to capture the n-th string match where n>9.
+
+- - -

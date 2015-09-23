@@ -103,7 +103,7 @@ rdiscount:
 redcarpet:
   extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough", "with_toc_data",
                                  "space_after_headers","superscript","underline","highlight","footnotes",
-                                 "with_toc_data","prettify"]
+                                 "with_toc_data","prettify","lax_spacing"]
 
 kramdown:
 #  input:                        GFM
