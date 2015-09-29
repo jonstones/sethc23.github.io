@@ -71,3 +71,22 @@ mark {
     color: #000;
     background: #D0FFC4;
 }
+
+
+.col-branch {
+    width: 10%;
+}
+.col-message {
+    width: 60%;
+}
+.col-date {
+    /*width: 110px*/
+    width: 20%;
+}
+.col-sha {
+    width: 10%;
+}
+
+.commit-message {
+    font-weight: normal;
+}

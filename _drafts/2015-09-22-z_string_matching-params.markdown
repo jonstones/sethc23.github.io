@@ -1,7 +1,8 @@
 ---
-title: string_matching
+title: String Matching
 layout: post
-categories: pgxz,function definition
+category: pgxz
+category: function definition
 ---
 
 ## TODO -- UPDATE LINK IN COMMENTS
@@ -27,7 +28,7 @@ General functions for administering pgSQL and numerous other methods related to 
 
 #### _Query Strings_: 
 
-This function returns a number between 0 and 1 quantifying the similarity between two *postgreSQL* search queries.  The input queries `qry_a` and `qry_b` must designate the aliases (`a_str`, `a_idx`) and (`b_str`, `b_idx`), respectively. For example:
+This function returns a number between 0 and 1 quantifying the similarity between the results of two *postgreSQL* search queries.  The input queries `qry_a` and `qry_b` must designate the aliases (`a_str`, `a_idx`) and (`b_str`, `b_idx`), respectively. For example:
 
 
 
@@ -57,8 +58,8 @@ CREATE TABLE z_string_test_2 AS (
 
 ```PLpgSQL
 SELECT * FROM z_string_matching(
-    'select a_str a_str,a_idx a_idx from z_string_test_2',
-    'select b_str b_str,b_idx b_idx from z_string_test_2',
+    'SELECT a_str a_str,a_idx a_idx FROM z_string_test_2',
+    'SELECT b_str b_str,b_idx b_idx FROM z_string_test_2',
     'false'
 )
 ```
@@ -113,8 +114,8 @@ SELECT * FROM z_string_matching(
 
 ```PLpgSQL
 SELECT * FROM z_string_matching(
-    'select unnest(a_str) a_str,unnest(a_idx) a_idx from z_string_test_1',
-    'select unnest(b_str) b_str,unnest(b_idx) b_idx from z_string_test_1',
+    'SELECT UNNEST(a_str) a_str,UNNEST(a_idx) a_idx FROM z_string_test_1',
+    'SELECT UNNEST(b_str) b_str,UNNEST(b_idx) b_idx FROM z_string_test_1',
     ''
 )
 ```
@@ -166,8 +167,10 @@ SELECT * FROM z_string_matching(
 </br>
 Of further note:  
 
-1. `other_matches` is the index (i.e., `b_idx`) of the other `b_str` matches having the same best score.
-2. Avoid using **"pllua_"** as a prefix for any alias relating to `qry_a` or `qry_b`.
+1. the Jaro-Winkler algorithm values first letter(s) matches >> last letter matches
+2. `jaro_score` equals 0.0 where any string evaluated has a length less than 4 
+3. `other_matches` is the index (i.e., `b_idx`) of the other `b_str` matches having the same best jaro score
+4. avoid using **"pllua_"** as a prefix for any alias relating to `qry_a` or `qry_b`
 
 
 </br>
@@ -180,12 +183,11 @@ The `params_as_json` argument is either:
 - (b) a one dimensional JSON string.
 
 If a JSON string, it may comprise any combination of the below *Parameter List*.
+
 Some general points:
 
-- all keys and values of this JSON are strings enclosed with double quotes (and not two single quotes)
-- All boolean values are case insenstive.
-- first letter(s) matches >> last letter matches
-- string minimum length of 4
+- all keys and values of `params_as_json` are strings enclosed with double quotes (and not two single quotes)
+- all boolean values are case insensitive
 
 
 *Parameter List*:
@@ -208,7 +210,12 @@ See [String Permutation examples](#string-permutation-examples).
 
 <br>
 
-> _**`concat_str`**_,_**`div_str`**_:  These parameters define what characters are used to join or split column(s) into strings for comparison.
+
+> _**`concat_str`**_
+
+<br>
+
+> _**`div_str`**_:  This parameters define what characters are used to split column(s) into strings for comparison.
 For example, this function will evaluate permutations of "one-two-three" (e.g., "two-one-three", etc...) if `div_str` is `"-"` or includes `"-;"`.[^2]
 A semicolon (`";"`) marks a break point between segments of characters used to split a string (**"splitting segment"** hereinafter).
 
@@ -216,7 +223,7 @@ A semicolon (`";"`) marks a break point between segments of characters used to s
 - Multiple criteria of any non-zero length may constitute a splitting segment.
 - All splitting segment space(s) (e.g., `"   ;  ; ;"`) must be at the beginning of `div_str`.
 - Only single semi-colons can currently be used as splitting segments (e.g., `";;"`), and it must be put at the end of `div_str`.
-- The **default value for `div_str` is `" ;-;_;/;\\;|;&;;"`**
+- The **default value for `div_str` is `" ;-;_;/;\\;|;&;;;"`**
 
 See [String Manipulation examples](#string-manipulation-examples).
 
@@ -288,6 +295,6 @@ Specifically, this function works well when wrapped in an iterative method evalu
 
 [^1]: This description relating to `qry_a` applies similarly to `qry_b`.
 
-[^2]: Lua regular expression [patterns](http://www.lua.org/manual/5.1/manual.html#5.4.1) are somewhat uncommon, and therefore, was not natively integrated.  For instance, (1) "or" logic does not exist (or did not exist when developing), (2) matching patterns cannot be quantified (e.g., "{n,}"), and (3) there is no mechanism to capture the n-th string match where n>9.
+[^2]: Lua regular expression [patterns](http://www.lua.org/manual/5.1/manual.html#5.4.1) are somewhat uncommon, and therefore, were not natively integrated.  For example, (1) "or" logic does not exist (or did not exist when developing), (2) matching patterns cannot be quantified (e.g., "{n,}"), and (3) there is no mechanism to capture the n-th string match where n>9.
 
 - - -
