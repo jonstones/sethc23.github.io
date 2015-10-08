@@ -2,8 +2,6 @@
 layout: post
 title:  "Getting Started with Git Pages"
 date:   2015-09-15 20:00:19
-categories: git gitpages
-
 ---
 
 ## Installing Framework

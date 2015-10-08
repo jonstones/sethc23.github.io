@@ -14,17 +14,31 @@ layout: page
             <div class="post-list-body">
 
                 <div class="all-posts" post-cate="All">
+                    {% assign post_tags = "" %}
                     {% for post in site.posts %}
-                    <a class="post-list-item"
-                       href="{{ post.url | prepend: site.baseurl }}">
-                        <h2>
-                            {{ post.title }}
-                        </h2>
-                        <span class="">{{ post.date | date: "%b %-d, %Y" }}</span>
-                    </a>
+
+                        {% assign tags_exist = false %}
+
+                        {% for t in post.tags %}
+                            {% assign tags_exist = true %}
+                            {% assign post_tags = post_tags | append: ',"' | append: t | append: '"' %}
+                        {% endfor %}
+
+                        <a class="post-list-item"
+                           href="{{ post.url | prepend: site.baseurl }}">
+                            <h2>{{ post.title }}</h2>
+
+                            {% if tags_exist %}
+                                <ul>Tags: {{ post.tags | sort | join: ', ' }}</ul>
+                            {% endif %}
+
+                            <span class="">{{ post.date | date: "%b %-d, %Y" }}</span>
+                        </a>
 
 
                     {% endfor %}
+                    {% assign post_tags = post_tags | remove_first: ',' %}
+
 
                     <div class="paginator">
                         {% if site.posts.total_pages > 1 %}
@@ -53,25 +67,26 @@ layout: page
                 </div>
 
                 <!-- <div class="posts-in-categories"> -->
-                {% for category in site.posts.categories %}
-                <div post-cate="{{category | first}}">
-                    {% for posts in category %}
-                        {% for post in posts %}
-                        {% if post.url %}
-                            <a href="{{ post.url | prepend: site.baseurl }}"
-                               class="post-list-item">
-                                <h2>
-                                    {{ post.title }}
-                                </h2>
-                                <span class="">{{ post.date | date: "%b %-d, %Y" }}</span>
-                            </a>
-                        {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                {% endfor %}
+                <!--{% for category in site.posts.categories %}-->
+                <!--<div post-cate="{{category | first}}">-->
+                    <!--{% for posts in category %}-->
+                        <!--{% for post in posts %}-->
+                        <!--{% if post.url %}-->
+                            <!--<a href="{{ post.url | prepend: site.baseurl }}"-->
+                               <!--class="post-list-item">-->
+                                <!--<h2>-->
+                                    <!--{{ post.title }}-->
+                                <!--</h2>-->
 
+                                <!--<span class="">{{ post.date | date: "%b %-d, %Y" }}</span>-->
+                            <!--</a>-->
+                        <!--{% endif %}-->
+                        <!--{% endfor %}-->
+                    <!--{% endfor %}-->
+                <!--</div>-->
+                <!--{% endfor %}-->
                 <!-- </div> -->
+
             </div>
 
 
@@ -79,18 +94,25 @@ layout: page
     </div>
     <div class="col-sm-3">
         <div class="shadow-corner-curl hidden-xs">
-            <div class="categories-list-header">Categories</div>
+            <div class="categories-list-header">Tags</div>
 
-            <a href="{{ page.url }}" class="categories-list-item" cate="All"> All<span class="my-badge"> {{site.posts | size}}</span>
+            <a href="{{ page.url }}" class="categories-list-item" cate="All"> { All }<span class="my-badge"> {{site.posts | size}}</span>
+            <script>
+                var post_tags = [{{ post_tags }}];
+                var counts = {};
+                for (var i = 0; i < post_tags.length; i++) {
+                    counts[post_tags[i]] = 1 + (counts[post_tags[i]] || 0);
+                }
+
+                var str_output = "";
+                for (var prop in counts) {
+                    str_output = str_output + "<a href=\"javascript:;\" class=\"categories-list-item\" cate=\""+prop+"\">"+prop+"<span class=\"my-badge\">"+counts[prop]+"</span> </a>";
+                }
+                document.write(str_output);
+            </script>
+
             </a>
-            {% for category in site.posts.categories order:ascending %}
-            <a href="javascript:;"
-               class="categories-list-item"
-               cate="{{ category | first }}">
-                {{ category | first }} <span
-                    class="my-badge">{{ category | last | size }}</span>
-            </a>
-            {% endfor %}
+
         </div>
     </div>
 </div>

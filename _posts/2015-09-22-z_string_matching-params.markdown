@@ -1,20 +1,8 @@
 ---
-title: String Matching
+title: Custom pgSQL Functions -- string_matching
 layout: post
-category: pgxz
-category: function definition
+tags: pgxz-function function-definition work-in-progress
 ---
-
-## TODO -- UPDATE LINK IN COMMENTS
-
----
-
-# pgxz.functions
-
-
-General functions for administering pgSQL and numerous other methods related to geospatial interests.
-
-- - -
 
 
 ## **string_matching(*qry_a*, *qry_b*, *params_as_json*)**
@@ -195,7 +183,7 @@ Some general points:
 
 > _**`first_match_only`**_: Upon finding a `b_str` match for a particular `a_str` given the input criteria, stop further processing re: `a_str` and return the first-matched `b_str`.  This option often works well in conjunction with minimal iterative steps and high-score conditions to quickly extract the easy matches and minimize the number of future, more arduous, steps.
 
-- ==[ ] implement==
+- ==[x] implement==
 - ==[ ] finish note==
 
 <br>
@@ -203,14 +191,19 @@ Some general points:
 > _**`a_cols_as_prefix`**_[^1],
 > _**`a_cols_as_suffix`**_[^1]: Each of these parameters is a string split by a semi-colon and made into a list that defines additional return columns in `qry_a`.  The *prefix* and *suffix* parameters define what set of strings, and in what order, will be concatenated with the base return column (i.e., `a_str`). The parameters `div_str` and `concat_str` (described next) define how the string set will be split and joined, respectively, and then compared.
 
-- ==[ ] implement==
+- ==[x] implement==
 - ==[ ] finish note==
 
 <br>
 
-> _**`concat_str`**_: This parameters define what character set is used to combine string parts, if applicable.
+> _**`concat_str`**_: This parameter defines what character set is used to combine string parts, if applicable.
 
 - **Default: `" "`**
+
+- ==[x] implement==
+- ==[ ] finish note==
+
+<br>
 
 <br>
 
@@ -221,10 +214,14 @@ Some general points:
 - Only single semi-colons can currently be used as splitting segments (e.g., ==";;"==), and it must be put at the end of `div_str`.
 - **Default: ==" ;-;_;/;\\;|;&;;;"==**
 
-See [String Manipulation examples](#string-manipulation-examples).
+<br>
 
 - ==[X] implement==
 - ==[ ] finish note==
+
+<br>
+
+See [String Manipulation examples](#string-manipulation-examples).
 
 <br>
 
@@ -237,55 +234,37 @@ Available options:
 - =="iter"==: With this option, this function splits each `a_str` by `div_str` and evaluates each segment therein. For example, where `a_str` equals "one-two-three", this function will attempt to return the best match for all cases where `a_str` equals "one", "two", or "three" (assuming `div_str` is =="-"== or includes =="-;"==).
 - =="perm"==: Here, the function splits each `a_str` by `div_str` and evaluates all permutations of segment arrangements.  For example, where `a_str` equals "one-two-three", this function will attempt to return the best match for cases where `a_str` equals "two-one-three", "three-one-two", etc... (assuming `div_str` is =="-"== or includes =="-;"==).
 
+<br>
+
+- ==[X] implement==
+- ==[ ] finish note==
+
+<br>
+
 See [String Permutation examples](#string-permutation-examples).
+
+<br>
+
+> _**`a_str_condition`**_[^1]: This parameter provides a mechanism for limiting the results of the input queries (e.g., `qry_a`) when the input queries return, that is, the result that this function then scores.
 
 - ==[x] implement==
 - ==[ ] finish note==
 
 <br>
 
-> _**`a_str_condition`**_[^1]: This parameter provides a mechanism for limiting the results of the input queries (e.g., `qry_a`).  When the input queries return, that is, the result that this function then score.
-
-- ==[ ] implement==
-- ==[ ] finish note==
-
-<br>
-
 > _**`a_idx_condition`**_ : When `iter_a_str_perms` equals **"true"**, this condition is handy to minimize the iterations of `a_str` that are compared with every `b_str` result.
 
-- ==[ ] implement==
+- ==[x] implement==
 - ==[ ] finish note==
 
 <br>
 
 > _**`update_cond`**_:  This allows for fine-tuning when and what results are returned.
 
-- ==[ ] implement==
+- ==[x] implement==
 - ==[ ] finish note==
 
 <br>
-
-#### _Best Practices_:
-To make an analogy, this function is like classic American muscle car..
-goes pretty good in a straight line and when the path is clear but,
-hit a curve, and wheels start to spin, and things get ugly.
-
-This function works well when incrementally changing input parameters while
-adjusting result conditions in relation to the function's efficacy.
-
-Specifically, this function works well when wrapped in an iterative method evaluating:
-
-1. less but most unique data types/columns, high score conditions, first matches only
-2. less columns but segmentation and permutation, high score conditions, best match
-3. more data columns (sorted from most to least likely matching), high scores, best match
-<div class="horizontalgap" style="width:10px"></div>. 
-<div class="horizontalgap" style="width:10px"></div>. etc...
-<div class="horizontalgap" style="width:10px"></div>. 
-<div class="horizontalgap" style="width:10px"></div>. (until a some stop condition)
-
-
-- ==[ ] implement==
-- ==[ ] finish note==
 
 
 <br>
@@ -301,6 +280,21 @@ Specifically, this function works well when wrapped in an iterative method evalu
 
 - ==[ ] implement==
 - ==[ ] finish note==
+
+<br>
+
+#### _Reference to Related Functions_:
+
+- **string_matching_mgr**
+
+    - ==[ ] implement==
+    - ==[ ] finish note==
+
+
+#### _Add this webpage to pgSQL function comments_:
+
+- ==[ ] implement==
+
 
 
 <br>
