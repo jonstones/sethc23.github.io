@@ -23,10 +23,11 @@
           {% else %}
           <li>
         {% endif %}
-          <a href="{{ site.baseurl }}/"><span class="glyphicon glyphicon-th-large"></span> Blog</a></li>
+
+        <a href="{{ site.baseurl }}/"><span class="glyphicon glyphicon-briefcase"></span> Projects</a></li>
 
         {% for p in site.pages %}
-          {% if p.title %}
+          {% if p.title and p.path contains '_' %}
             {% if p.url == page.url %}
               <li class="active">
               {% else %}

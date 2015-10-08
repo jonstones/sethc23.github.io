@@ -9,7 +9,7 @@ category: function definition
 
 ---
 
-## pgxz.functions
+# pgxz.functions
 
 
 General functions for administering pgSQL and numerous other methods related to geospatial interests.
@@ -17,7 +17,7 @@ General functions for administering pgSQL and numerous other methods related to 
 - - -
 
 
-### ==pgxz.**string_matching**(*qry_a*, *qry_b*, *params_as_json*)==
+## **string_matching(*qry_a*, *qry_b*, *params_as_json*)**
 </br>
 #### _Methodology_:
 
@@ -190,7 +190,7 @@ Some general points:
 - all boolean values are case insensitive
 
 
-*Parameter List*:
+*PARAMETERS*:
 <br>
 
 > _**`first_match_only`**_: Upon finding a `b_str` match for a particular `a_str` given the input criteria, stop further processing re: `a_str` and return the first-matched `b_str`.  This option often works well in conjunction with minimal iterative steps and high-score conditions to quickly extract the easy matches and minimize the number of future, more arduous, steps.
@@ -201,33 +201,45 @@ Some general points:
 <br>
 
 > _**`a_cols_as_prefix`**_[^1],
-> _**`a_cols_as_suffix`**_[^1], 
-> _**`iter_a_str_perms`**_[^1]: each of these is a string split by a semi-colon and made into a list that defines additional return columns in `qry_a`.  The *prefix* and *suffix* parameters define what set of strings, and in what order, will be concatenated with the base return column (i.e., `a_str`). The parameters `concat_str` and `div_str` (described next) define how the string set will be joined and split, respectively. If `iter_a_str_perms` equals **"true"** (case insensitive), then this function will attempt to evaluate permutations of character segments in `a_str`.
-See [String Permutation examples](#string-permutation-examples).
+> _**`a_cols_as_suffix`**_[^1]: Each of these parameters is a string split by a semi-colon and made into a list that defines additional return columns in `qry_a`.  The *prefix* and *suffix* parameters define what set of strings, and in what order, will be concatenated with the base return column (i.e., `a_str`). The parameters `div_str` and `concat_str` (described next) define how the string set will be split and joined, respectively, and then compared.
 
 - ==[ ] implement==
 - ==[ ] finish note==
 
 <br>
 
+> _**`concat_str`**_: This parameters define what character set is used to combine string parts, if applicable.
 
-> _**`concat_str`**_
+- **Default: `" "`**
 
 <br>
 
-> _**`div_str`**_:  This parameters define what characters are used to split column(s) into strings for comparison.
-For example, this function will evaluate permutations of "one-two-three" (e.g., "two-one-three", etc...) if `div_str` is `"-"` or includes `"-;"`.[^2]
-A semicolon (`";"`) marks a break point between segments of characters used to split a string (**"splitting segment"** hereinafter).
-
+> _**`div_str`**_:  This parameter defines what characters are used to split strings into segments, and is used by default to normalize string before comparison (see `a_str_mod` for more detail). This parameter, used in conjunction with `a_str_mod`, can operate as a regular expression substitute.[^2] A semicolon (==";"==) marks a break point between segments of characters used to split a string (**"splitting segment"** hereinafter).
 
 - Multiple criteria of any non-zero length may constitute a splitting segment.
-- All splitting segment space(s) (e.g., `"   ;  ; ;"`) must be at the beginning of `div_str`.
-- Only single semi-colons can currently be used as splitting segments (e.g., `";;"`), and it must be put at the end of `div_str`.
-- The **default value for `div_str` is `" ;-;_;/;\\;|;&;;;"`**
+- All splitting segment space(s) (e.g., =="   ;  ; ;"==) must be at the beginning of `div_str`.
+- Only single semi-colons can currently be used as splitting segments (e.g., ==";;"==), and it must be put at the end of `div_str`.
+- **Default: ==" ;-;_;/;\\;|;&;;;"==**
 
 See [String Manipulation examples](#string-manipulation-examples).
 
-- ==[ ] implement==
+- ==[X] implement==
+- ==[ ] finish note==
+
+<br>
+
+> _**`a_str_mod`**_[^1]: this parameter designates an additional option for evaluating variations of the query input `a_str`. 
+
+Available options:
+
+- =="norm"== *or* ==""== *or* (*undesignated*) (**Default**): By default, `a_str` and `b_str` are split by all splitting characters defined by `div_str` and then concatenated with the value of `concat_str`.  This step effectively normalizes strings and usually allows for more consistent scoring.
+- =="none"== *or* =="false"==:  These case-insensitive options disable the normalization step.
+- =="iter"==: With this option, this function splits each `a_str` by `div_str` and evaluates each segment therein. For example, where `a_str` equals "one-two-three", this function will attempt to return the best match for all cases where `a_str` equals "one", "two", or "three" (assuming `div_str` is =="-"== or includes =="-;"==).
+- =="perm"==: Here, the function splits each `a_str` by `div_str` and evaluates all permutations of segment arrangements.  For example, where `a_str` equals "one-two-three", this function will attempt to return the best match for cases where `a_str` equals "two-one-three", "three-one-two", etc... (assuming `div_str` is =="-"== or includes =="-;"==).
+
+See [String Permutation examples](#string-permutation-examples).
+
+- ==[x] implement==
 - ==[ ] finish note==
 
 <br>

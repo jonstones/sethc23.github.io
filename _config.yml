@@ -83,7 +83,7 @@ excerpt_separator:              "\n\n"
 #detach:                         false
 port:                           28901
 #host:                           0.0.0.0
-baseurl:                        ""          # does not include hostname
+#baseurl:                        ""          # does not include hostname -- SEE TOP OF FILE
 
 # Outputting
 #permalink:                      date
