@@ -18,13 +18,17 @@
           
           {% endif %}
           <span class="point"> · </span>
-          <span><a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS</a></span>
-          <span class="point"> · </span>
-          <span>{{ site.description }}</span>
-          <span class="point"> · </span>
-          <span>&copy; 2015 Gaohaoyang</span>
-          <span class="point"> · </span>
-          <span>Designed by <a href="https://github.com/Gaohaoyang">HyG</a></span>
+          <span class="glyphicon glyphicon-link"></span>
+          <span><a href="{{ '/feed.xml' | prepend: site.baseurl }}">RSS</a></span>
+      </div>
+      <div class="col-md-12">
+        <span>
+            Template designed by <a href="https://github.com/Gaohaoyang" style="text-decoration: underline">HyG</a>
+            {% assign copy_year = page.date | date: '%Y' %}
+            <p>
+            &copy; 2015 {{ site.github_username }}
+            </p>
+            </span>
       </div>
     </div>
   </div>
