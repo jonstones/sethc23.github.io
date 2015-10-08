@@ -27,7 +27,13 @@
         <a href="{{ site.baseurl }}/"><span class="glyphicon glyphicon-briefcase"></span> Projects</a></li>
 
         {% for p in site.pages %}
-          {% if p.title and p.path contains '_' %}
+          {% assign file_included = true %}
+          {% if p.url == "/index.html" %}
+            {% assign file_included = false %}
+          {% elsif p.path contains '_' %}
+            {% assign file_included = false %}
+          {% endif %}
+          {% if p.title and file_included %}
             {% if p.url == page.url %}
               <li class="active">
               {% else %}
