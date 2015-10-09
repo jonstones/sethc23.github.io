@@ -1,21 +1,21 @@
 jQuery.githubCommit = function (username, repository, sha, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/git/commits/' + sha + '?access_token=c4370b1ef682786444882c2de012d2e512f74e3c&callback=?', callback)
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/git/commits/' + sha + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
 }
 
 jQuery.githubRepoGetBranch = function (username, repository, branch, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches/' + branch + '?access_token=c4370b1ef682786444882c2de012d2e512f74e3c&callback=?', callback)
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches/' + branch + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
 }
 
 jQuery.githubRepoBranchList = function (username, repository, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches' + '?access_token=c4370b1ef682786444882c2de012d2e512f74e3c&callback=?', callback)
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches' + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
 }
 
 jQuery.githubRepo = function (username, repository, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '?access_token=c4370b1ef682786444882c2de012d2e512f74e3c&callback=?', callback)
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
 }
 
 jQuery.githubUser = function (username, callback) {
-    jQuery.getJSON('https://api.github.com/users/'+username+'/repos?sort=updated&access_token=c4370b1ef682786444882c2de012d2e512f74e3c&callback=?',callback)
+    jQuery.getJSON('https://api.github.com/users/'+username+'/repos?sort=updated&access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?',callback)
 }
 
 
