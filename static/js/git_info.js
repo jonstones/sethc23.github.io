@@ -15,10 +15,8 @@ jQuery.githubRepo = function (username, repository, callback) {
 }
 
 jQuery.githubUser = function (username, callback) {
-    //jQuery.getJSON('https://api.github.com/users/' + username + '/repos?sort=updated&type=owner&callback=?', callback)
     jQuery.getJSON('https://api.github.com/users/'+username+'/repos?sort=updated&access_token=c4370b1ef682786444882c2de012d2e512f74e3c&callback=?',callback)
 }
-
 
 
 jQuery.fn.getRepositories = function (username) {
@@ -33,7 +31,7 @@ jQuery.fn.getRepositories = function (username) {
         target.empty().append(list);
 
         $(repos).each(function () {
-            //if (this.name != (username.toLowerCase() + '.github.com')) {
+            if (this.name != (username.toLowerCase() + '.github.com')) {
                 var repo_name = this.name;
                 var r_list = $('<div class="post-list-item">');
 
@@ -45,7 +43,10 @@ jQuery.fn.getRepositories = function (username) {
 
                 $.githubRepo(username, repo_name, function (moreData) {
                     var repoinfo = moreData.data;
-                    if ( repoinfo.private==false && repoinfo.fork==false && repoinfo.name!='sethc23.github.io' ) {
+                    if ( repoinfo.private==false
+                            && repoinfo.fork==false
+                            //&& repoinfo.name!='sethc23.github.io'
+                            ) {
                         r_list.append(_row);
                         var r_list_branches = $('');
 
@@ -77,21 +78,12 @@ jQuery.fn.getRepositories = function (username) {
                         }
                     }
                 });
-            //}
+            }
         });
     });
 };
 
-jQuery.fn.sortRepositories = function (_from,_to) {
-
-    function getData(from_selector) {
-        //return $.ajax({
-        //    //url : 'http://10.0.1.52:28901/pages/4tmp.html',
-        //    url : 'http://10.0.1.52:28901/static/html/tmp_git_info.html',
-        //    type: 'GET'
-        //});
-        return $(from_selector).toArray();
-    }
+jQuery.fn.sortRepositories = function (from_selector,to_selector) {
 
     function sortFunction(a,b){
         var dateA = new Date(a.date).getTime();
@@ -203,18 +195,13 @@ jQuery.fn.sortRepositories = function (_from,_to) {
 
     }
 
-    //var d=getData(_from);
+    var hidden_content = document.getElementById("all-hidden-repos");
+    var rows = hidden_content.getElementsByClassName('post-list-item');
 
-    var t = document.getElementById("all-hidden-repos");
-    var rows = t.getElementsByClassName('post-list-item');
-
-    var target = $(_to);
+    var target = $(to_selector);
     var sorted_output = $('<div id="all-visible-repos" class="repos">');
     target.empty().append(sorted_output);
 
-    console.log(rows);
     handleData(rows);
-
-    console.log(document.documentElement.innerHTML);
 
 };
