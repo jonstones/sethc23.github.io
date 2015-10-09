@@ -1,3 +1,9 @@
+---
+title: Projects
+icon: glyphicon-briefcase
+layout: page
+---
+
 <!--<script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>-->
 <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
 <!--<script src="/static/js/git_info.js" type="text/javascript"></script>-->
@@ -43,6 +49,7 @@
 
 
         var i=300;
+        var wait_state = "complete";
         var interval = setInterval(function() {
             if( i == 0 ) {
                 console.log(i);
@@ -55,9 +62,8 @@
                 console.log($("#github-projects").text()!="" && $("#github-projects").text().indexOf("Querying GitHub for")<0 && document.readyState == "complete");
                 console.log("starting");
                 $.getScript('/static/js/git_info.js',function(){
-                    $("#sorted-github-projects").sortRepositories("#github-projects","#sorted-github-projects");
+                    $("#all-posts").sortRepositories("#github-projects","#sorted-github-projects");
                 });
-
                 clearInterval(interval);
                 callback();
                 return;
@@ -113,8 +119,8 @@
                 <div id="all-posts" post-cate="All">
 
 
-                    <div id="github-projects" style="display: none;"></div>
-                    <div id="sorted-github-projects"></div>
+                    <div id="github-projects" style="display: none;"/>
+                    <div id="sorted-github-projects"/>
 
 
 
@@ -124,3 +130,5 @@
         </div>
     </div>
 </div>
+
+

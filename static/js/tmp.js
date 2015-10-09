@@ -1,9 +1,31 @@
 
-//$(document).ready(function() {
-//
-//    run_func();
-//
-//});
+$(document).ready(function() {
+
+    run_func();
+    //$.getScript("")
+    //$.getScript("my_lovely_script.js", function(){
+    //    alert("Script loaded but not necessarily executed.");
+    //});
+
+});
+
+function loadScript(url, callback) {
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+//loadScript("git_info.js", jQuery.fn.getRepos("sethc23"));
 
 function run_func() {
 
@@ -13,7 +35,8 @@ function run_func() {
 
     function getData() {
         return $.ajax({
-            url : 'http://10.0.1.52:28901/pages/4tmp.html',
+            //url : 'http://10.0.1.52:28901/pages/4tmp.html',
+            url : 'http://10.0.1.52:28901/static/html/tmp_git_info.html',
             type: 'GET'
         });
     }

@@ -23,17 +23,17 @@ jQuery.githubUser = function (username, callback) {
 
 jQuery.fn.getRepositories = function (username) {
     
-    this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
+    //this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
 
     var target = this;
 
     $.githubUser(username, function (data) {
         var repos = data.data;
-        var list = $('<div id="all-repos" class="repos">');
+        var list = $('<div id="all-hidden-repos" class="repos">');
         target.empty().append(list);
 
         $(repos).each(function () {
-            if (this.name != (username.toLowerCase() + '.github.com')) {
+            //if (this.name != (username.toLowerCase() + '.github.com')) {
                 var repo_name = this.name;
                 var r_list = $('<div class="post-list-item">');
 
@@ -72,33 +72,25 @@ jQuery.fn.getRepositories = function (username) {
                             r_list.append(tbl_list);
                         });
                         list.append(r_list);
+                        if (repo_name==repos[repos.length - 1].name) {
+                            list.append('<div id="hidden_content_end"/>');
+                        }
                     }
                 });
-            }
+            //}
         });
-
     });
-
-
 };
 
-jQuery.fn.loadRepositories = function (username) {
+jQuery.fn.sortRepositories = function (_from,_to) {
 
-
-    //var d = jQuery.get('http://10.0.1.52:28901/pages/4tmp.html')
-    //var x = d.responseText;
-    //x = jQuery.parseHTML(x)
-    //var a = 0;
-
-    var target = this;
-    var sorted_output = $('<div id="all-repos" class="repos">');
-    target.empty().append(sorted_output);
-
-    function getData() {
-        return $.ajax({
-            url : 'http://10.0.1.52:28901/pages/4tmp.html',
-            type: 'GET'
-        });
+    function getData(from_selector) {
+        //return $.ajax({
+        //    //url : 'http://10.0.1.52:28901/pages/4tmp.html',
+        //    url : 'http://10.0.1.52:28901/static/html/tmp_git_info.html',
+        //    type: 'GET'
+        //});
+        return $(from_selector).toArray();
     }
 
     function sortFunction(a,b){
@@ -107,9 +99,10 @@ jQuery.fn.loadRepositories = function (username) {
         return dateB > dateA ? 1 : -1;
     };
 
-    function handleData(data /* , textStatus, jqXHR */ ) {
-        var x = $.parseHTML(data);
-        var rows=x[1].getElementsByClassName('post-list-item');
+    function handleData(rows /* , textStatus, jqXHR */ ) {
+        //var x = $.parseHTML(data);
+        //console.log(JSON.stringify(x));
+        //var rows=data.getElementsByClassName('post-list-item');
 
         var all_branch_rows = [];
         var most_recent_branch_commits = [];
@@ -210,6 +203,18 @@ jQuery.fn.loadRepositories = function (username) {
 
     }
 
-    getData().done(handleData);
+    //var d=getData(_from);
+
+    var t = document.getElementById("all-hidden-repos");
+    var rows = t.getElementsByClassName('post-list-item');
+
+    var target = $(_to);
+    var sorted_output = $('<div id="all-visible-repos" class="repos">');
+    target.empty().append(sorted_output);
+
+    console.log(rows);
+    handleData(rows);
+
+    console.log(document.documentElement.innerHTML);
 
 };
