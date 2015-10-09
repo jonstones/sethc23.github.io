@@ -75,16 +75,20 @@ mark {
 
 .col-branch {
     width: 10%;
+    font-weight: normal;
 }
 .col-message {
     width: 60%;
+    font-weight: normal;
 }
 .col-date {
     /*width: 110px*/
     width: 20%;
+    font-weight: normal;
 }
 .col-sha {
     width: 10%;
+    font-weight: normal;
 }
 
 .commit-message {

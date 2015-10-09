@@ -6,6 +6,7 @@ $(document).ready(function() {
     categoryDisplay();
     generateContent();
     backToTop();
+
 });
 
 /**
