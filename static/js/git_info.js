@@ -1,31 +1,30 @@
-jQuery.githubCommit = function (username, repository, sha, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/git/commits/' + sha + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
+jQuery.githubCommit = function (token, username, repository, sha, callback) {
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/git/commits/' + sha + '?access_token='+token+'&callback=?', callback)
 }
 
-jQuery.githubRepoGetBranch = function (username, repository, branch, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches/' + branch + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
+jQuery.githubRepoGetBranch = function (token, username, repository, branch, callback) {
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches/' + branch + '?access_token='+token+'&callback=?', callback)
 }
 
-jQuery.githubRepoBranchList = function (username, repository, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches' + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
+jQuery.githubRepoBranchList = function (token, username, repository, callback) {
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '/branches' + '?access_token='+token+'&callback=?', callback)
 }
 
-jQuery.githubRepo = function (username, repository, callback) {
-    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '?access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?', callback)
-}
-
-jQuery.githubUser = function (username, callback) {
-    jQuery.getJSON('https://api.github.com/users/'+username+'/repos?sort=updated&access_token=cd8cf005a21d93486c198ba4d769ec95725bed75&callback=?',callback)
+jQuery.githubRepo = function (token, username, repository, callback) {
+    jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '?access_token='+token+'&callback=?', callback)
 }
 
 
-jQuery.fn.getRepositories = function (username) {
-    
+jQuery.githubUser = function (token, username, callback) {
+    jQuery.getJSON('https://api.github.com/users/'+username+'/repos?sort=updated&access_token='+token+'&callback=?',callback)
+}
+
+
+jQuery.fn.getRepoInfo = function (token, username, target) {
+
     //this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
 
-    var target = this;
-
-    $.githubUser(username, function (data) {
+    $.githubUser(token, username, function (data) {
         var repos = data.data;
         var list = $('<div id="all-hidden-repos" class="repos">');
         target.empty().append(list);
@@ -41,7 +40,7 @@ jQuery.fn.getRepositories = function (username) {
                 _row = _row + '</h2>';
                 _row = _row + '<p>' + this.description + '</p>';
 
-                $.githubRepo(username, repo_name, function (moreData) {
+                $.githubRepo(token, username, repo_name, function (moreData) {
                     var repoinfo = moreData.data;
                     if ( repoinfo.private==false
                             && repoinfo.fork==false
@@ -50,7 +49,7 @@ jQuery.fn.getRepositories = function (username) {
                         r_list.append(_row);
                         var r_list_branches = $('');
 
-                        $.githubRepoBranchList(username, repo_name, function (branchList) {
+                        $.githubRepoBranchList(token, username, repo_name, function (branchList) {
                             var branches = branchList.data;
                             var tbl_list = $('<table class="commit-table" id="repo_info" style="width:100%">');
                             var tbl_body = $('<tbody>');
@@ -59,7 +58,7 @@ jQuery.fn.getRepositories = function (username) {
                                 var b = this;
                                 var tbl_row = $('<tr>');
 
-                                $.githubCommit(username, repo_name, b.commit.sha, function (commit_info) {
+                                $.githubCommit(token, username, repo_name, b.commit.sha, function (commit_info) {
                                     tbl_row.append('<th><div class="commit-branch">' + b.name + '</div></th>');
                                     var c = commit_info.data;
                                     tbl_row.append('<th><div class="commit-message">' + c.message + '</div></th>');
@@ -83,7 +82,54 @@ jQuery.fn.getRepositories = function (username) {
     });
 };
 
-jQuery.fn.sortRepositories = function (from_selector,to_selector) {
+
+jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
+
+    var token = "";
+    var _url = "http://alloworigin.com/get?url=" + encodeURIComponent("http://info.sanspaper.com/github") + "&callback=?&tor=1";
+
+    $.getJSON(_url, function (data) {
+        data.data
+    }).always(function (d) {
+        token = d.contents;
+    });
+
+    var cnt = 0;
+    while (token == "" && cnt < 1) {
+
+        function _wait(x) {
+            cnt += 1;
+            setTimeout(re_check, x)
+        }
+
+        function re_check(x) {
+
+            if (document.readyState != "complete" || token.length == 0) {
+                setTimeout(re_check, x)
+            } else {
+                //console.log("have token? " + token);
+                //console.log("have username? " + username);
+                //console.log("have target? " + target);
+                $.fn.getRepoInfo(token, username, target);
+
+            }
+        }
+        _wait(2000);
+    }
+
+}
+
+
+jQuery.fn.getRepositories = function (username) {
+    
+    //this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
+    var target = this;
+    var token = $.fn.firstGetLimitedRepoToken(username,target);
+
+}
+
+
+jQuery.fn.sortRepositories = function (from_selector) {
 
     function sortFunction(a,b){
         var dateA = new Date(a.date).getTime();
@@ -95,37 +141,57 @@ jQuery.fn.sortRepositories = function (from_selector,to_selector) {
         //var x = $.parseHTML(data);
         //console.log(JSON.stringify(x));
         //var rows=data.getElementsByClassName('post-list-item');
-
+        console.log("rows.length");
+        console.log(rows.length);
         var all_branch_rows = [];
         var most_recent_branch_commits = [];
         for (var i = 0; i < rows.length; i++) {
             var r = {};
-            var _this = rows[i];
+            var _this_repo = rows[i];
             r.id=i;
-            var header = _this.getElementsByTagName('h2')[0];
+            var header = _this_repo.getElementsByTagName('h2')[0];
             var header_link = header.getElementsByTagName('a')[0];
             r.repo_text = header_link.text;
-            r.repo_datatype = header.getElementsByTagName('em')[0].innerText;
-            r.repo_link = header_link.href;
-            r.repo_description = _this.getElementsByTagName('p')[0].innerText;
 
-            branches = _this.getElementsByTagName('tr');
+            r.repo_datatype = header.getElementsByTagName('em')[0];
+            if ( r.repo_datatype ) {
+                r.repo_datatype = r.repo_datatype.innerText;
+            }
+            r.repo_link = header_link.href;
+            r.repo_description = _this_repo.getElementsByTagName('p')[0];
+            if ( r.repo_description ) {
+                r.repo_description = r.repo_description.innerText;
+            }
+
+            console.log("HERE");
+            console.log(_this_repo);
+            console.log("HERE^");
+
+            branches = $.makeArray(_this_repo.getElementsByTagName('tr')).slice(1);
             r.branch_cnt = branches.length - 1;
             var this_repo_branch_rows = [];
-            for (var j = 1; j < branches.length; j++) {
-                var _this = branches[j].getElementsByTagName('div');
-                r.branch=_this[0].innerText;
-                r.message=_this[1].innerText;
-                r.date_text=_this[2].innerText;
+            for (var j = 0; j < branches.length; j++) {
+                console.log(j);
+                var _this_branch = branches[j].getElementsByTagName('div');
+                //_this_branch = $(_this_branch);
+                console.log(_this_branch);
+                console.log(branches[j]);
+                console.log(branches[j].getElementsByTagName('div'));
+
+
+                r.branch=_this_branch[0].innerText;
+                r.message=_this_branch[1].innerText;
+                r.date_text=_this_branch[2].innerText;
 		        r.date=new Date(r.date_text);
-                var commit_link = _this[3].getElementsByTagName('a')[0];
+                var commit_link = _this_branch[3].getElementsByTagName('a')[0];
                 r.commit_text=commit_link.text;
                 r.commit_link=commit_link.href;
                 var r_copy =JSON.parse(JSON.stringify(r));
                 this_repo_branch_rows.push(r_copy);
             }
             this_repo_branch_rows.sort(sortFunction);
-
+            console.log("this_repo_branch_rows");
+            console.log(this_repo_branch_rows);
             // Deep copy of sorted branches
             for (var j = 0; j < this_repo_branch_rows.length; j++) {
 
@@ -142,18 +208,22 @@ jQuery.fn.sortRepositories = function (from_selector,to_selector) {
 
         }
         most_recent_branch_commits.sort(sortFunction);
+
+        console.log("most_recent_branch_commits");
+        console.log(most_recent_branch_commits);
+
         for (var i = 0; i < most_recent_branch_commits.length; i++) {
 
-            var _this = most_recent_branch_commits[i];
-            var next_branch_rows = all_branch_rows.slice(_this.id, _this.id + _this.branch_cnt);
+            var _this_repo = most_recent_branch_commits[i];
+            var next_branch_rows = all_branch_rows.slice(_this_repo.id, _this_repo.id + _this_repo.branch_cnt);
 
             // Make Row
             var _row = '<div class="post-list-item">';
 
             // Row Header
-            _row += '<h2><a href="'+_this.repo_link+'">'+_this.repo_text+'</a><em>'+_this.repo_datatype+'</em></h2>';
+            _row += '<h2><a href="'+_this_repo.repo_link+'">'+_this_repo.repo_text+'</a><em>'+_this_repo.repo_datatype+'</em></h2>';
             // Row Description
-            _row += '<p>'+_this.repo_description+'</p>';
+            _row += '<p>'+_this_repo.repo_description+'</p>';
 
             // Make Table/Body
             _row += '<table class="commit-table" id="repo_info" style="width:100%"><tbody>';
@@ -163,17 +233,17 @@ jQuery.fn.sortRepositories = function (from_selector,to_selector) {
 
             for (var j = 0; j < next_branch_rows.length; j++) {
 
-                var _this = next_branch_rows[j];
+                var _this_branch = next_branch_rows[j];
 
                 // Start Branch Row
                 var branch_row = "";
                 branch_row += '<tr>';
 
                 // Branch Row Columns
-                branch_row += '<th><div class="commit-branch">'+_this.branch+'</div></th>';
-                branch_row += '<th><div class="commit-message">'+_this.message+'</div></th>';
-                branch_row += '<th><div class="commit-date">'+_this.date_text+'</div></th>';
-                branch_row += '<th><div class="commit-sha"><a href="'+_this.commit_link+'">'+_this.commit_text+'</a></div></th>';
+                branch_row += '<th><div class="commit-branch">'+_this_branch.branch+'</div></th>';
+                branch_row += '<th><div class="commit-message">'+_this_branch.message+'</div></th>';
+                branch_row += '<th><div class="commit-date">'+_this_branch.date_text+'</div></th>';
+                branch_row += '<th><div class="commit-sha"><a href="'+_this_branch.commit_link+'">'+_this_branch.commit_text+'</a></div></th>';
 
                 // End Branch Row
                 branch_row += '</tr>';
@@ -197,11 +267,13 @@ jQuery.fn.sortRepositories = function (from_selector,to_selector) {
 
     var hidden_content = document.getElementById("all-hidden-repos");
     var rows = hidden_content.getElementsByClassName('post-list-item');
-
-    var target = $(to_selector);
+    console.log("rows.length");
+    console.log(rows.length);
+    var target = this;
     var sorted_output = $('<div id="all-visible-repos" class="repos">');
     target.empty().append(sorted_output);
-
+    console.log("rows.length");
+    console.log(rows.length);
     handleData(rows);
 
 };
