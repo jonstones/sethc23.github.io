@@ -35,7 +35,7 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
 
                 var _row = '<h2>';
                 _row = _row + '<a href="' + (this.homepage ? this.homepage : this.html_url) + '">' + this.name + '</a>';
-                _row = _row + '<em> ' + (this.language ? ('(' + this.language + ')') : '') + '</em>';
+                _row = _row + '<em>' + (this.language ? this.language : '') + '</em>';
                 _row = _row + '</h2>';
                 _row = _row + '<p>' + this.description + '</p>';
 
@@ -200,9 +200,9 @@ jQuery.fn.sortRepositories = function (from_selector) {
             var _row = '<div class="post-list-item">';
 
             // Row Header
-            _row += '<h2><a href="'+_this_repo.repo_link+'">'+_this_repo.repo_text+'</a><em>'+_this_repo.repo_datatype+'</em></h2>';
+            _row += '<h2><a href="'+_this_repo.repo_link+'">'+_this_repo.repo_text+'</a> (<em>'+_this_repo.repo_datatype+'</em>)</h2>';
             // Row Description
-            _row += '<p>'+_this_repo.repo_description+'</p>';
+            _row += '<ul><p>'+_this_repo.repo_description+'</p></ul>';
 
             // Make Table/Body
             _row += '<table class="commit-table" id="repo_info" style="width:100%"><tbody>';
