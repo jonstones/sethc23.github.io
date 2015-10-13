@@ -81,6 +81,7 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
             }
         });
     })
+
 };
 
 jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
