@@ -24,150 +24,97 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
 
     //this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
 
-    console.log("START");
+    //var dataLoaded = false;
 
-    function sortFunction(a,b){
-        var dateA = new Date(a.date).getTime();
-        var dateB = new Date(b.date).getTime();
-        return dateB > dateA ? 1 : -1;
-    };
+    //function run_script() {
 
+    $.githubUser(token, username, function (data) {
+        var repos = data.data;
+        var list = $('<div id="all-hidden-repos" class="repos">');
+        target.empty().append(list);
 
-    var dataLoaded = false;
+        $(repos).each(function () {
+            if (this.name != (username.toLowerCase() + '.github.com')) {
+                var repo_name = this.name;
+                var r_list = $('<div class="post-list-item">');
 
-    function run_script() {
+                var _row = '<h2>';
+                _row = _row + '<a href="' + (this.homepage ? this.homepage : this.html_url) + '">' + this.name + '</a>';
+                _row = _row + '<em> ' + (this.language ? ('(' + this.language + ')') : '') + '</em>';
+                _row = _row + '</h2>';
+                _row = _row + '<p>' + this.description + '</p>';
 
-        $.githubUser(token, username, function (data) {
-            var repos = data.data;
-            var list = $('<div id="all-hidden-repos" class="repos">');
-            target.empty().append(list);
+                $.githubRepo(token, username, repo_name, function (moreData) {
+                    var repoinfo = moreData.data;
+                    if (repoinfo.private == false
+                        && repoinfo.fork == false
+                    //&& repoinfo.name!='sethc23.github.io'
+                    ) {
+                        r_list.append(_row);
+                        var r_list_branches = $('');
 
-            $(repos).each(function () {
-                if (this.name != (username.toLowerCase() + '.github.com')) {
-                    var repo_name = this.name;
-                    var r_list = $('<div class="post-list-item">');
+                        $.githubRepoBranchList(token, username, repo_name, function (branchList) {
+                            var branches = branchList.data;
+                            var tbl_list = $('<table class="commit-table" id="repo_info" style="width:100%">');
+                            var tbl_body = $('<tbody>');
+                            tbl_body.append('<tr><th class="col-branch">Branch</th><th class="col-message">Message</th><th class="col-date">Date</th><th class="col-sha">Commit</th></th>');
 
-                    var _row = '<h2>';
-                    _row = _row + '<a href="' + (this.homepage ? this.homepage : this.html_url) + '">' + this.name + '</a>';
-                    _row = _row + '<em> ' + (this.language ? ('(' + this.language + ')') : '') + '</em>';
-                    _row = _row + '</h2>';
-                    _row = _row + '<p>' + this.description + '</p>';
-
-                    $.githubRepo(token, username, repo_name, function (moreData) {
-                        var repoinfo = moreData.data;
-                        if (repoinfo.private == false
-                            && repoinfo.fork == false
-                        //&& repoinfo.name!='sethc23.github.io'
-                        ) {
-                            r_list.append(_row);
-                            var r_list_branches = $('');
-
-                            $.githubRepoBranchList(token, username, repo_name, function (branchList) {
-                                var branches = branchList.data;
-                                var tbl_list = $('<table class="commit-table" id="repo_info" style="width:100%">');
-                                var tbl_body = $('<tbody>');
-                                tbl_body.append('<tr><th class="col-branch">Branch</th><th class="col-message">Message</th><th class="col-date">Date</th><th class="col-sha">Commit</th></th>');
-
-
-                                var last_commits = [];
-
-                                $(branches).each(function () {
-                                    var b = this;
-                                    var _last = [];
-
-                                    $.githubCommit(token, username, repo_name, b.commit.sha, function (commit_info) {
-
-
-                                        var c = commit_info.data;
-                                        var d = new Date(c.author.date);
-
-                                        var _c = {};
-                                        _c.branch = b.name;
-                                        _c.msg = c.message;
-                                        _c.date = d;
-                                        _c.date_str = d.toISOString().replace(/T/, ' ').replace(/\..+/, '');
-                                        _c.commit_url = c.html_url;
-                                        _c.sha = c.sha.substring(0, 7);
-
-                                        _last.push(_c);
-
-                                        //debugger;
-                                        //return;
-
-                                    });
-
-                                    last_commits.push(_last);
-
-                                    //tbl_body.append(tbl_row);
-
-                                    //debugger;
-                                    //return;
-
-                                });
-
-                                last_commits.sort(sortFunction);
-
-
+                            $(branches).each(function () {
+                                var b = this;
                                 var tbl_row = $('<tr>');
 
-                                for (var i = 0; i < last_commits.length; i++) {
-
-                                    var c = last_commits[i];
-                                    tbl_row.append('<th><div class="commit-branch">' + c.branch + '</div></th>');
-                                    tbl_row.append('<th><div class="commit-message">' + c.msg + '</div></th>');
-                                    tbl_row.append('<th><div class="commit-date">' + c.date_str + '</div></th>');
-                                    tbl_row.append('<th><div class="commit-sha"><a href="' + c.commit_url + '">' + c.sha + '</a></div></th>');
-                                    tbl_body.append(tbl_row);
-
-                                }
-
-                                //debugger
-                                //return;
-
-                                tbl_list.append(tbl_body);
-                                r_list.append(tbl_list);
+                                $.githubCommit(token, username, repo_name, b.commit.sha, function (commit_info) {
+                                    tbl_row.append('<th><div class="commit-branch">' + b.name + '</div></th>');
+                                    var c = commit_info.data;
+                                    tbl_row.append('<th><div class="commit-message">' + c.message + '</div></th>');
+                                    var d = new Date(c.author.date);
+                                    tbl_row.append('<th><div class="commit-date">' + d.toISOString().replace(/T/, ' ').replace(/\..+/, '') + '</div></th>');
+                                    tbl_row.append('<th><div class="commit-sha"><a href="' + c.html_url + '">' + c.sha.substring(0, 7) + '</a></div></th>');
+                                });
+                                tbl_body.append(tbl_row);
                             });
-                            list.append(r_list);
-                            if (repo_name == repos[repos.length - 1].name) {
-                                list.append('<div id="hidden_content_end"/>');
-                            }
+
+                            tbl_list.append(tbl_body);
+                            r_list.append(tbl_list);
+                        });
+                        list.append(r_list);
+                        if (repo_name == repos[repos.length - 1].name) {
+                            list.append('<div id="hidden_content_end"/>');
                         }
-                    });
-                }
-            });
-        })
-        dataLoaded = true;
-    };
-
-    run_script();
-
-    //debugger;
-
-
-    var cnt = 0;
-    while ( !dataLoaded && cnt < 1) {
-
-        function _wait(x) {
-            cnt += 1;
-            setTimeout(re_check, x)
-        }
-
-        function re_check(x) {
-
-            if (document.readyState != "complete" || !dataLoaded) {
-                setTimeout(re_check, x)
-                console.log("rechecking");
-            } else {
-                //console.log("have token? " + token);
-                //console.log("have username? " + username);
-                console.log("loaded?");
-                //$.fn.getRepoInfo(token, username, target);
-                //break;
-
+                    }
+                });
             }
-        }
-        _wait(2000);
-    }
+        });
+    })
+
+    //};
+
+    //run_script();
+
+    //var cnt = 0;
+    //while ( !dataLoaded && cnt < 1) {
+    //
+    //    function _wait(x) {
+    //        cnt += 1;
+    //        setTimeout(re_check, x)
+    //    }
+    //
+    //    function re_check(x) {
+    //
+    //        if (document.readyState != "complete" || !dataLoaded) {
+    //            setTimeout(re_check, x)
+    //            console.log("rechecking");
+    //        } else {
+    //            //console.log("have token? " + token);
+    //            //console.log("have username? " + username);
+    //            console.log("loaded?");
+    //            //$.fn.getRepoInfo(token, username, target);
+    //            //break;
+    //
+    //        }
+    //    }
+    //    _wait(2000);
+    //}
 };
 
 

@@ -5,18 +5,23 @@
     function fn_sequencer(callback) {
         var i=300;
         var interval = setInterval(function() {
+
             if( i == 0 ) {
-//                console.log(i);
+                console.log("DONE");
+                console.log(i);
                 clearInterval(interval);
                 callback();
                 return;
-            } else if (  $("#github-projects").text()!="" && $("#github-projects").text().indexOf("Querying GitHub for")<0 && document.readyState == "complete" ) {
+            } else if (  $("#github-projects").text()!=""
+                        && $("#github-projects").text().indexOf("Querying GitHub for")<0
+                        && document.readyState == "complete"
+                        && $("#hidden_content_end").ready().length>0 ) {
 //                console.log(i);
 //                console.log(document.readyState);
 //                console.log($("#github-projects").text()!="" && $("#github-projects").text().indexOf("Querying GitHub for")<0 && document.readyState == "complete");
 //                console.log("starting");
                 $.getScript('/static/js/git_info.js',function(){
-                    $("#sorted-github-projects").sortRepositories("#github-projects","#sorted-github-projects");
+                    $("#sorted-github-projects").sortRepositories("#github-projects");
                 });
                 clearInterval(interval);
                 callback();
@@ -25,32 +30,79 @@
 //                console.log(i);
             }
         i--;
-        }, 100);
+        }, 300);
         return true;
     }
 
+    var dataLoaded = false;
     function fn1() {
-        $.getScript('static/js/git_info.js',function(){
+        $.getScript('/static/js/git_info.js',function(){
             $("#github-projects").getRepositories("sethc23");
+        }).always(function () {
+            dataLoaded = true;
         });
-        fn_sequencer(function () { });
+
+//        fn_sequencer(function () { });
     }
 
     // Create a deferred object
-    var dfd = $.Deferred();
+//    var dfd = $.Deferred();
 
     // Add handlers to be called when dfd is resolved
-    dfd
+//    dfd
     // .done() can take any number of functions or arrays of functions
-      .done( fn1,$("#github-projects").text().indexOf("Querying GitHub for")<0 );
+//    .done( fn1,$("#github-projects").text().indexOf("Querying GitHub for")<0 );
     // We can chain done methods, too
-    //.done( fn2 );
+//    .done( $.getScript('/static/js/git_info.js',function(){
+//                $("#sorted-github-projects").sortRepositories("#github-projects");
+//            }),document.readyState=="complete"
+//            );
 
-    $(document).ready(function() {
+//    $(document).ready(function() {
+//
+//        dfd.resolve();
+//
+//    });
 
-        dfd.resolve();
+    fn1();
 
-    });
+    var cnt = 0;
+    var wait_period = 2000;
+    while ( !dataLoaded && cnt < 1) {
+
+        function _wait() {
+            cnt += 1;
+            setTimeout(re_check, wait_period)
+        }
+
+        function re_check() {
+
+            if (
+                dataLoaded
+                && $("#github-projects").text()!=""
+                && $("#github-projects").text().indexOf("Querying GitHub for")<0
+                && document.readyState == "complete"
+                && document.getElementById("hidden_content_end")
+            ) {
+                //console.log("have token? " + token);
+                //console.log("have username? " + username);
+//                debugger;
+                console.log("loaded?");
+                $.getScript('/static/js/git_info.js',function(){
+                    $("#sorted-github-projects").sortRepositories("#github-projects");
+                });
+                //$.fn.getRepoInfo(token, username, target);
+                //break;
+
+            } else {
+//                debugger;
+                setTimeout(re_check, wait_period);
+                console.log("rechecking");
+
+            }
+        }
+        _wait();
+    }
 
 </script>
 
