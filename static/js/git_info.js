@@ -14,19 +14,14 @@ jQuery.githubRepo = function (token, username, repository, callback) {
     jQuery.getJSON('https://api.github.com/repos/' + username + '/' + repository + '?access_token='+token+'&callback=?', callback)
 }
 
-
 jQuery.githubUser = function (token, username, callback) {
     jQuery.getJSON('https://api.github.com/users/'+username+'/repos?sort=updated&access_token='+token+'&callback=?',callback)
 }
 
 
+
+
 jQuery.fn.getRepoInfo = function (token, username, target) {
-
-    //this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
-
-    //var dataLoaded = false;
-
-    //function run_script() {
 
     $.githubUser(token, username, function (data) {
         var repos = data.data;
@@ -86,37 +81,7 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
             }
         });
     })
-
-    //};
-
-    //run_script();
-
-    //var cnt = 0;
-    //while ( !dataLoaded && cnt < 1) {
-    //
-    //    function _wait(x) {
-    //        cnt += 1;
-    //        setTimeout(re_check, x)
-    //    }
-    //
-    //    function re_check(x) {
-    //
-    //        if (document.readyState != "complete" || !dataLoaded) {
-    //            setTimeout(re_check, x)
-    //            console.log("rechecking");
-    //        } else {
-    //            //console.log("have token? " + token);
-    //            //console.log("have username? " + username);
-    //            console.log("loaded?");
-    //            //$.fn.getRepoInfo(token, username, target);
-    //            //break;
-    //
-    //        }
-    //    }
-    //    _wait(2000);
-    //}
 };
-
 
 jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 
@@ -154,15 +119,12 @@ jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 
 }
 
-
 jQuery.fn.getRepositories = function (username) {
-    
-    //this.html("<span>Querying GitHub for " + username + "'s repositories...</span>");
+
     var target = this;
     var token = $.fn.firstGetLimitedRepoToken(username,target);
 
 }
-
 
 jQuery.fn.sortRepositories = function (from_selector) {
 
@@ -178,7 +140,7 @@ jQuery.fn.sortRepositories = function (from_selector) {
         for (var i = 0; i < rows.length; i++) {
             var r = {};
             var _this_repo = rows[i];
-            r.id=i;
+            r.id = i;
             var header = _this_repo.getElementsByTagName('h2')[0];
             var header_link = header.getElementsByTagName('a')[0];
             r.repo_text = header_link.text;
@@ -193,60 +155,13 @@ jQuery.fn.sortRepositories = function (from_selector) {
                 r.repo_description = r.repo_description.innerText;
             }
 
-
-            //branches = $.makeArray(_this_repo.getElementsByTagName('tr')).slice(1);
-            //r.branch_cnt = branches.length;
-
-            //branches = $(_this_repo.getElementsByTagName('tr'));
-            //r.branch_cnt = branches.length - 1;
-
-            //branches = $(_this_repo.getElementsByTagName('tr'));
-            //r.branch_cnt = branches.length - 1;
-
             branches = _this_repo.getElementsByTagName('tr');
             r.branch_cnt = branches.length - 1;
-
 
             var this_repo_branch_rows = [];
             for (var j = 1; j < branches.length; j++) {
 
-                //var _this_branch = branches[j].getElementsByTagName('div');
-                //r.branch=_this_branch[0];
-                //if ( r.branch ) {
-                //    r.branch = r.branch.innerText;
-                //}
-                //
-                //r.message=_this_branch[1];
-                //if ( r.message ) {
-                //    r.message = r.message.innerText;
-                //}
-                //r.date_text=_this_branch[2];
-                //if ( r.date_text ) {
-                //    r.date_text = r.date_text.innerText;
-                //}
-                //r.date=new Date(r.date_text);
-                //var commit_link = _this_branch[3];
-                //if ( commit_link ) {
-                //    commit_link = commit_link.getElementsByTagName('a')[0];
-                //}
-
-
-                //var _this_branch = branches[j].getElementsByTagName('div');
                 var _this_branch = branches[j].getElementsByTagName('div');
-                //var _this_branch = $.makeArray(branches[j].getElementsByTagName('div'));
-
-                //_this_branch = $(_this_branch);
-
-                //r.branch=_this_branch[0].innerText;
-                //console.log(_this_branch);
-                //console.log("break");
-                //var t = document.getElementsByClassName('post-list-item');
-                //console.log(t);
-                //r.message=$(_this_branch).eq(1).innerText;
-                //r.date_text=$(_this_branch).eq(2).innerText;
-                //r.date=new Date(r.date_text);
-                //var commit_link = $(_this_branch).eq(3).find('a').eq(0);
-
 
                 r.branch=_this_branch[0].innerText;
                 r.message=_this_branch[1].innerText;
