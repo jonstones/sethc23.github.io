@@ -87,7 +87,7 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
 jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 
     var token = "";
-    var _url = "http://alloworigin.com/get?url=" + encodeURIComponent("http://pastebin.com/raw.php?i=N1Gskkpk") + "&callback=?&tor=1";
+    var _url = "http://alloworigin.com/get?url=" + encodeURIComponent("http://pastebin.com/download.php?i=N1Gskkpk") + "&callback=?&tor=1";
 
     $.getJSON(_url, function (data) {
         data.data
