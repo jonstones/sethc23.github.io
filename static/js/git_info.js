@@ -178,7 +178,7 @@ jQuery.fn.getRepositories = function (username) {
     //var token = $.fn.firstGetLimitedRepoToken(username,target);
     var token = $.fn.simpleCipher("decode",
                                   "IKHIgGDgGGffEgHfHEfHFKhGGBgfJjKhCKJijFhH");
-    console.log(token);
+    //console.log(token);
 
 }
 
