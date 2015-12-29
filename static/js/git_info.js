@@ -82,7 +82,59 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
         });
     })
 
-};
+}
+
+
+jQuery.fn.simpleCipher = function (codeType, msg) {
+    
+    var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890";
+    var key = "09876543210zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA";
+    
+    function simple_encode(message)
+        // Given  : message is the string to be encoded using the key
+        // Returns: the coded version of message using the substitution key 
+        {
+            var coded, i, ch, index;
+            coded = "";                                      
+            for (i = 0; i < message.length; i++) {        // for as many letters as there are
+                ch = message.charAt(i);                   //   access the letter in the message
+                index = alphabet.indexOf(ch);             //   find its position in alphabet
+                if (index == -1) {                        //   if it's not a letter,
+                    coded = coded + ch;                   //     then leave it as is & add
+                }                                         //   otherwise,
+                else {                                    //     find the corresponding
+                    coded = coded + key.charAt(index);    //     letter in the key & add
+                }
+            }
+            return coded;
+        }
+    function simple_decode(message)
+        // Given  : message is the string to be decoded using the key
+        // Returns: the decoded version of message using the substitution key 
+        {
+            var coded, i, ch, index;
+            coded = "";                                      
+            for (i = 0; i < message.length; i++) {             // for as many letters as there are
+                ch = message.charAt(i);                        //   access the letter in the message
+                index = key.indexOf(ch);                       //   find its position in key
+                if (index == -1) {                             //   if it's not a letter,
+                    coded = coded + ch;                        //     then leave it as is & add
+                }                                              //   otherwise,
+                else {                                         //     find the corresponding
+                    coded = coded + alphabet.charAt(index);    //     letter in the alphabet & add
+                }
+            }
+            return coded;
+        }
+
+    if (codeType=="encode") {
+        return simple_encode(msg)
+    } else if (codeType=="decode") {
+        return simple_decode(msg)
+    } else {
+        return msg
+    };
+}
 
 jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 
@@ -123,7 +175,10 @@ jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 jQuery.fn.getRepositories = function (username) {
 
     var target = this;
-    var token = $.fn.firstGetLimitedRepoToken(username,target);
+    //var token = $.fn.firstGetLimitedRepoToken(username,target);
+    var token = $.fn.simpleCipher("decode",
+                                  "IKHIgGDgGGffEgHfHEfHFKhGGBgfJjKhCKJijFhH");
+    console.log(token);
 
 }
 
