@@ -19,8 +19,6 @@ jQuery.githubUser = function (token, username, callback) {
 }
 
 
-
-
 jQuery.fn.getRepoInfo = function (token, username, target) {
 
     $.githubUser(token, username, function (data) {
@@ -31,6 +29,7 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
         $(repos).each(function () {
             if (this.name != (username.toLowerCase() + '.github.com')) {
                 var repo_name = this.name;
+
                 var r_list = $('<div class="post-list-item">');
 
                 var _row = '<h2>';
@@ -139,46 +138,52 @@ jQuery.fn.simpleCipher = function (codeType, msg) {
 jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 
     var token = "";
-    var _url = "http://alloworigin.com/get?url=" + encodeURIComponent("http://pastebin.com/raw.php?i=N1Gskkpk") + "&callback=?&tor=1";
+    // var _url = "http://alloworigin.com/get?url=" + encodeURIComponent("http://pastebin.com/raw.php?i=N1Gskkpk") + "&callback=?&tor=1";
 
-    $.getJSON(_url, function (data) {
-        data.data
-    }).always(function (d) {
-        token = d.contents;
-    });
+    // $.getJSON(_url, function (data) {
+    //     data.data
+    // }).always(function (d) {
+    //     token = d.contents;
+    // });
 
-    var cnt = 0;
-    while (token == "" && cnt < 1) {
+    
+    var token = $.fn.simpleCipher("decode",
+                                  "IKHIgGDgGGffEgHfHEfHFKhGGBgfJjKhCKJijFhH");
 
-        function _wait(x) {
-            cnt += 1;
-            setTimeout(re_check, x)
-        }
+    // console.log("firstGet");
+    // console.log(token);
 
-        function re_check(x) {
+    $.fn.getRepoInfo(token, username, target);
 
-            if (document.readyState != "complete" || token.length == 0) {
-                setTimeout(re_check, x)
-            } else {
-                //console.log("have token? " + token);
-                //console.log("have username? " + username);
-                //console.log("have target? " + target);
-                $.fn.getRepoInfo(token, username, target);
+    // var cnt = 0;
+    // while (token == "" && cnt < 1) {
 
-            }
-        }
-        _wait(2000);
-    }
+    //     function _wait(x) {
+    //         cnt += 1;
+    //         setTimeout(re_check, x)
+    //     }
+
+    //     function re_check(x) {
+
+    //         if (document.readyState != "complete" || token.length == 0) {
+    //             setTimeout(re_check, x)
+    //         } else {
+    //             //console.log("have token? " + token);
+    //             //console.log("have username? " + username);
+    //             //console.log("have target? " + target);
+    //             $.fn.getRepoInfo(token, username, target);
+
+    //         }
+    //     }
+    //     _wait(2000);
+    // }
 
 }
 
 jQuery.fn.getRepositories = function (username) {
 
     var target = this;
-    //var token = $.fn.firstGetLimitedRepoToken(username,target);
-    var token = $.fn.simpleCipher("decode",
-                                  "IKHIgGDgGGffEgHfHEfHFKhGGBgfJjKhCKJijFhH");
-    //console.log(token);
+    var token = $.fn.firstGetLimitedRepoToken(username,target);
 
 }
 
