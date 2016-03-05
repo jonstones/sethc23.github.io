@@ -11,16 +11,21 @@ layout: page
                 <div class="all-refs">
                     {% for ref in site.data.references %}
                         <div class="ref-area ref" id="{{ ref.idx }}--{{ ref.fname }}">
-                        <h{{ ref.header_val }} id="{{ ref.fpath }}">
-                            <a href="{{ ref.fpath }}">{{ ref.title }}</a>
-                        </h{{ ref.header_val }}>
-                        {% if ref.fname %}
+                            
+                            <h{{ ref.header_val }} id="{{ ref.fpath | replace: '/','_' }}">
+                            {{ ref.title }}
+                            </h{{ ref.header_val }}>
+                            
+                            {% assign ref_url = page.dir | remove_first: '/' | append: '/' | append: ref.fpath %}
+                            
                             {% for pg in site.pages %}
-                                {% if ref.fname == pg.name %}
+                                
+                                {% if ref_url == pg.path %}
                                     <div class='ref-content_md'>{{ pg.content | markdownify }}</div>
                                 {% endif %}
+
                             {% endfor %}
-                        {% endif %}
+
                         </div>
                     {% endfor %}
                 </div>
