@@ -1,0 +1,5 @@
+---
+- [Acrobat 8 JS API.pdf](JavaScript/Acrobat_8_JS_API.pdf)
+- [Ajax Simplified.pdf](JavaScript/Ajax_Simplified.pdf)
+- [Apress.Pro.JQuery.Feb.2012.ISBN.1430240954.pdf](JavaScript/Apress.Pro.JQuery.Feb.2012.ISBN.1430240954.pdf)
+- [Practical jQuery.pdf](JavaScript/Practical_jQuery.pdf)

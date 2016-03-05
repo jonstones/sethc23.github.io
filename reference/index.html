@@ -1,0 +1,59 @@
+---
+title: Wiki
+icon: glyphicon-book
+layout: page
+---
+
+<div id="index" class="row">
+    <div class="col-sm-9">
+        <div class="ref-area">
+            <div class="ref-list-body">
+                <div class="all-refs">
+                    {% for ref in site.data.references %}
+                        <div class="ref-area ref" id="{{ ref.idx }}--{{ ref.fname }}">
+                        <h{{ ref.header_val }} id="{{ ref.fpath }}">
+                            <a href="{{ ref.fpath }}">{{ ref.title }}</a>
+                        </h{{ ref.header_val }}>
+                        {% if ref.fname %}
+                            {% for pg in site.pages %}
+                                {% if ref.fname == pg.name %}
+                                    <div class='ref-content_md'>{{ pg.content | markdownify }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="shadow-corner-curl hidden-xs">
+            <div id="toc"></div>
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $('#toc').toc({ minimumHeaders: 1 });
+            });
+            </script>
+            <!--<div class="categories-list-header">Contents</div>-->
+
+            <!--<a href="{{ page.url }}" class="categories-list-item" cate="All"> { All }<span class="my-badge"> {{site.posts | size}}</span>-->
+            <!--<script>-->
+                <!--var post_tags = [{{ post_tags }}];-->
+                <!--var counts = {};-->
+                <!--for (var i = 0; i < post_tags.length; i++) {-->
+                    <!--counts[post_tags[i]] = 1 + (counts[post_tags[i]] || 0);-->
+                <!--}-->
+
+                <!--var str_output = "";-->
+                <!--for (var prop in counts) {-->
+                    <!--str_output = str_output + "<a href=\"javascript:;\" class=\"categories-list-item\" cate=\""+prop+"\">"+prop+"<span class=\"my-badge\">"+counts[prop]+"</span> </a>";-->
+                <!--}-->
+                <!--document.write(str_output);-->
+            <!--</script>-->
+
+            <!--</a>-->
+
+        </div>
+    </div>
+</div>

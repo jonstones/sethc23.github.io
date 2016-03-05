@@ -23,25 +23,24 @@
           {% else %}
           <li>
         {% endif %}
-
         <a href="{{ site.baseurl }}/"><span class="glyphicon glyphicon-briefcase"></span> Projects</a></li>
 
-        {% for p in site.pages %}
-          {% assign file_included = true %}
-          {% if p.url == "/index.html" %}
-            {% assign file_included = false %}
-          {% elsif p.path contains '_' %}
-            {% assign file_included = false %}
-          {% endif %}
-          {% if p.title and file_included %}
+        {% for p in site.tabs %}
             {% if p.url == page.url %}
-              <li class="active">
-              {% else %}
-              <li>
+                <li class="active">
+            {% else %}
+                <li>
             {% endif %}
-            <a href="{{ p.url | prepend: site.baseurl }}"><span class="glyphicon {{ p.icon }}"></span> {{ p.title }}</a></li>
-          {% endif %}
+            <a href="{{ p.url | prepend: site.baseurl }}"><span class="glyphicon {{ p.icon }}"></span> {{ p.title }}</a>
+            </li>
         {% endfor %}
+
+        {% if page.url == "/reference/" %}
+          <li class="active">
+          {% else %}
+          <li>
+        {% endif %}
+        <a href="{{ '/reference/' | prepend: site.baseurl }}"><span class="glyphicon glyphicon-book"></span> Wiki</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

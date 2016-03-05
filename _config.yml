@@ -13,6 +13,31 @@ github_url: "https://github.com/sethc23"
 linkedin_url: "https://www.linkedin.com/pub/seth-t-chase/16/454/724"
 facebook_url: "https://www.facebook.com/public/Seth-Chase"
 
+copy_year: 2016
+
+collections:
+  - tabs
+  - reference
+
+collections:
+  tabs:
+    output: false
+
+  reference:
+    output: false
+    defaults:
+      - scope:
+          path: ""
+          type: references
+        values:
+          layout: reference
+
+
+
+
+### -------------------------------------------------
+### -------------------------------------------------
+
 
 # GLOBAL CONFIGURATIONS
 
@@ -94,14 +119,14 @@ paginate_path:                  "page:num"
 timezone:                       America/New_York
 
 quiet:                          false
-defaults:                       []
+# defaults:                       []
 
 # Markdown Processors
 rdiscount:
-  extensions:                   []
+  extensions:                   ["generate_toc"]
 
 redcarpet:
-  extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough", "with_toc_data",
+  extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough",
                                  "space_after_headers","superscript","underline","highlight","footnotes",
                                  "with_toc_data","prettify","lax_spacing"]
 
@@ -125,18 +150,8 @@ kramdown:
 # ------------------------------
 # ------------------------------
 
-#github:                         [Repository metadata]
-#title:                          site.github.owner_name
-#email:                          site.github.owner_name"@users.noreply.github.com"
-#url:                            site.github.owner_url
-#github_username:                site.github.owner_name
-#
-## Social Media
-#github_url:                     site.github.owner_url
-#linkedin_url:                   "https://www.linkedin.com/pub/seth-t-chase/16/454/724"
-#facebook_url:                   "https://www.facebook.com/public/Seth-Chase"
-# twitter_url:                    ""
-# google_plus_url:                ""
-# stack_exchange_url:             ""
-# stack_overflow_url:             ""
-
+gems:
+  - jekyll-sitemap
+  - octopress-date-format
+  - jekyll-paginate
+  - octopress-debugger
