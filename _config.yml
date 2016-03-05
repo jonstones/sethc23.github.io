@@ -153,5 +153,5 @@ kramdown:
 gems:
   - jekyll-sitemap
   - octopress-date-format
-  - jekyll-paginate
   - octopress-debugger
+#  - jekyll-paginate  
