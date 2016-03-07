@@ -6,16 +6,17 @@ idx,header_val,title,fname,fpath
 4,1,GoogleApp,GoogleApp.md,GoogleApp/GoogleApp.md
 5,1,JavaScript,JavaScript.md,JavaScript/JavaScript.md
 6,1,Linux Unix,Linux_Unix.md,Linux_Unix/Linux_Unix.md
-7,1,Manuals,Manuals.md,Manuals/Manuals.md
-8,1,Matlab,Matlab.md,Matlab/Matlab.md
-9,1,Misc,Misc.md,Misc/Misc.md
-10,1,Networking,Networking.md,Networking/Networking.md
-11,1,OSX,OSX.md,OSX/OSX.md
-12,2,Macports,Macports.md,OSX/Macports/Macports.md
-13,1,PDF,PDF.md,PDF/PDF.md
-14,1,Python,Python.md,Python/Python.md
-15,2,cython numpy,cython_numpy.md,Python/cython_numpy/cython_numpy.md
-16,1,Stack,Stack.md,Stack/Stack.md
-17,2,ngx,ngx.md,Stack/ngx/ngx.md
-18,2,pgSQL,pgSQL.md,Stack/pgSQL/pgSQL.md
-19,1,Visual Basic,Visual_Basic.md,Visual_Basic/Visual_Basic.md
+7,2,Log Aggregation and Tools,Log_Aggregation_and_Tools.md,Linux_Unix/Log_Aggregation_and_Tools.md
+8,1,Manuals,Manuals.md,Manuals/Manuals.md
+9,1,Matlab,Matlab.md,Matlab/Matlab.md
+10,1,Misc,Misc.md,Misc/Misc.md
+11,1,Networking,Networking.md,Networking/Networking.md
+12,1,OSX,OSX.md,OSX/OSX.md
+13,2,Macports,Macports.md,OSX/Macports/Macports.md
+14,1,PDF,PDF.md,PDF/PDF.md
+15,1,Python,Python.md,Python/Python.md
+16,2,cython numpy,cython_numpy.md,Python/cython_numpy/cython_numpy.md
+17,1,Stack,Stack.md,Stack/Stack.md
+18,2,ngx,ngx.md,Stack/ngx/ngx.md
+19,2,pgSQL,pgSQL.md,Stack/pgSQL/pgSQL.md
+20,1,Visual Basic,Visual_Basic.md,Visual_Basic/Visual_Basic.md

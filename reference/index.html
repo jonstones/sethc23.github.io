@@ -15,9 +15,9 @@ layout: wiki
                         {% assign ref_url = page.dir | remove_first: '/' | append: '/' | append: ref.fpath %}
                         
                         {% for pg in site.pages %}
-                            
+
                             {% if ref_url == pg.path %}
-                                <div class='ref-content_md'>{{ pg.content | markdownify }}</div>
+                                <div class='ref-content_md'>{{ pg.content | remove_first: '<hr>' | markdownify }}</div>
                             {% endif %}
 
                         {% endfor %}
@@ -47,7 +47,7 @@ layout: wiki
                             showEffect : 'none',
                             showSpeed : '0' });
         $('#sidebar>ul').replaceWith($('#sidebar>ul').contents());
-        $('#sidebar > li > ul').addClass('nav bs-docs-sidenav nav-stacked')
+        $('#sidebar > li').find('ul').addClass('nav bs-docs-sidenav nav-stacked');
 
         $('body').scrollspy({
           target: '.bs-docs-sidebar',

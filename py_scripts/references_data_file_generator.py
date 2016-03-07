@@ -146,8 +146,20 @@ def create_missing_markdown_indicies(df):
     df = get_file_list()
     return df
 def create_csv(df):
-    def sub_header_content(df,h_title):
-        
+    def get_markdown_content(df,c,h_title):
+        new_content = []
+        sub_header_cols = sorted([it for it in df.columns.tolist() if it[0]=='h' and it[1].isdigit()])
+        expected_fname_h_col = sub_header_cols[sub_header_cols.index(c)+1]
+        nf = sort_funct( df[(df.f_ext.isin(['md','markdown']) & (df.fname==df[expected_fname_h_col]))].copy(), sort_col='fname')
+        nf['l_header_val'] = nf['l_header_val'] + 1
+        if len(nf):
+            for i,row in nf.iterrows():
+                new_content.append([row.l_header_val,
+                                   row.l_title,
+                                   row.l_fname,
+                                   row.l_fpath])
+        return new_content
+    def get_sub_header_content(df,h_title):
         new_content = []
         sub_header_cols = ['h%s'%it for it in sorted(df.l_header_val.unique().tolist())]
         for c in sub_header_cols[1:]:
@@ -215,7 +227,7 @@ def create_csv(df):
     h_unique = hf[first_header_col].unique().tolist()
     h_pt = 0
     for h_title in h_unique:
-        
+
         # Add Main Header Row
         nf = hf[hf[first_header_col]==h_title].copy()
         try:
@@ -233,13 +245,17 @@ def create_csv(df):
                                         r.l_fpath)).rstrip(',') + '\n'
         h_pt += 1
         nf.drop(r.name,axis=0,inplace=True)
+            
+        for it in get_markdown_content(nf,first_header_col,h_title):
+            csv_content += str(csv_templ % tuple([h_pt] + it) ).rstrip(',') + '\n'
+            h_pt += 1
 
-        for it in sub_header_content(nf,h_title):
+        for it in get_sub_header_content(nf,h_title):
             csv_content += str(csv_templ % tuple([h_pt] + it) ).rstrip(',') + '\n'
             h_pt += 1
     
     with open(csv_fpath,'w') as f:
-        f.write(csv_content)
+       f.write(csv_content)
     
     return csv_content
 
