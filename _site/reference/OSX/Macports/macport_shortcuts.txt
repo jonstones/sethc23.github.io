@@ -1,0 +1,31 @@
+##Macport Shortcuts
+
+####Basic:
+sudo port selfupdate
+port installed [python*]
+sudo port install *
+port list | grep py30
+port list [python*]
+
+####Upgrading:
+port outdated
+sudo port -u upgrade outdated (run clean first, this keeps outdated)
+sudo port upgrade abc
+
+####Selecting:
+sudo port select --set pip pip27
+sudo port select python python32
+
+	python25/27/32
+
+####Checking:
+port logfile $port
+
+####Cleaning Generally:
+sudo du -sh /opt
+sudo port clean --all installed
+sudo port uninstall inactive (does this delete other python versions? probably)
+
+####Cleaning Specifically:
+sudo port clean --all $port
+
