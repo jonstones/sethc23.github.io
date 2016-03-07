@@ -3,4 +3,4 @@
 	url = https://github.com/ghiculescu/jekyll-table-of-contents.git
 [submodule "sethc23.github.io.wiki"]
 	path = sethc23.github.io.wiki
-	url = git@github.com:sethc23/sethc23.github.io.wiki.git
+	url = https://github.com/sethc23/sethc23.github.io.wiki.git
