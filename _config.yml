@@ -17,21 +17,21 @@ copy_year: 2016
 
 collections:
   - tabs
-  - reference
+  - wiki
 
 collections:
   tabs:
     output: true
 
-  reference:
+  wiki:
     output: false
-    permalink: /reference
+    permalink: /wiki
     defaults:
       - scope:
           path: ""
-          type: references
+          type: wiki
         values:
-          layout: reference
+          layout: wiki
 
 
 

@@ -1,4 +1,9 @@
 
+.edit_icon {
+    background-image: url(icons.png);
+    background-position: 10px; 50px;
+}
+
 #rightCol {
     /*padding: 0px 15px 0px 15px;*/
 }

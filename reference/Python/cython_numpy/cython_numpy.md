@@ -1,5 +1,0 @@
----
-- [SciPy2009 proceedings.pdf](Python/cython_numpy/SciPy2009_proceedings.pdf)
-- [cython numpy.md](Python/cython_numpy/cython_numpy.md)
-- [pandas cheatsheet.pdf](Python/cython_numpy/pandas_cheatsheet.pdf)
-- [Euro HPC 2013.pdf](Python/cython_numpy/Euro_HPC_2013.pdf)

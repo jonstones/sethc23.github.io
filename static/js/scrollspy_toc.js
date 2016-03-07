@@ -8,7 +8,7 @@ jQuery.fn.fix_sidebar = function () {
                         showSpeed : '0' });
     $('#sidebar>ul').replaceWith($('#sidebar>ul').contents());
     $('#sidebar > li').find('ul').addClass('nav bs-docs-sidenav nav-stacked');
-
+    $('#sidebar').find('a>img').remove();
 
     $('#rightCol').css({'-webkit-box-shadow': '', 'box-shadow': ''});
 
