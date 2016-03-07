@@ -24,7 +24,7 @@ collections:
     output: true
 
   wiki:
-    output: false
+    output: true
     permalink: /wiki
     defaults:
       - scope:
