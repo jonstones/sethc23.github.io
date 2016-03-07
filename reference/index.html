@@ -5,7 +5,7 @@ layout: wiki
 ---
 
 <div id="index" class="container bs-docs-container row" style="margin-left: -30px">
-    <div class="col-sm-9 anchor" id="all_ref_content" role="main">
+    <div class="col-sm-9" id="all_ref_content" role="main">
         <div class="ref-area ref-list-body">
                 {% for ref in site.data.references %}
                     <div class="bs-docs-section ref-area ref">
@@ -34,64 +34,11 @@ layout: wiki
     </div>
 </div>
 
-
-
-
 <script type="text/javascript">
-
     $(document).ready(function() {
-
-        $('#sidebar').toc({ title : '',
-                            minimumHeaders: 1, 
-                            listType: 'ul',
-                            showEffect : 'none',
-                            showSpeed : '0' });
-        $('#sidebar>ul').replaceWith($('#sidebar>ul').contents());
-        $('#sidebar > li').find('ul').addClass('nav bs-docs-sidenav nav-stacked');
-
-
-        $('#rightCol').css({'-webkit-box-shadow': '', 'box-shadow': ''});
-
-
-        $('body').scrollspy({
-          target: '.bs-docs-sidebar',
-          offset: 40
-        });
-        $("#rightCol").affix();
-        $("#top_navbar").affix();
-
-        // docViewTop = $('#rightCol').offset().top; docViewBottom = docViewTop + $('#rightCol').height(); elemTop = $("#sidebar > li.active").offset().top; elemBottom = elemTop + $("#sidebar > li.active").height();
-
-        // Keep Highlighted element in TOC visible during scrolling
-        $("#sidebar > li").on('activate', function() {
-            var docViewTop = $('#rightCol').offset().top;
-            var docViewBottom = docViewTop + $('#rightCol').height();
-            var elemTop = $("#sidebar > li.active").offset().top;
-            var elemBottom = elemTop + $("#sidebar > li.active").height();
-            if (  // if element NOT in view -- while scrolling down
-                (elemBottom >= docViewBottom) || 
-                 (elemTop <= docViewTop)
-                ) {
-                var half_window_height = $('#rightCol').height() / 2;
-                $('#rightCol').scrollTop($('#sidebar > li.active').position().top);
-                if ( elemBottom >= docViewBottom ) {
-                    $('#rightCol').scrollTop($('#sidebar > li.active').position().top + half_window_height);
-                } else if ( elemTop <= docViewTop ) {
-                    $('#rightCol').scrollTop($('#sidebar > li.active').position().top - half_window_height);
-                }
-            }
-        });
-
-        function resize_navbar() {
-            $('#top_navbar').css( 'margin-left', $('#main').css('margin-left'));
-            $('#top_navbar').css( 'margin-right', $('#main').css('margin-right'));
-        };
-
-        resize_navbar();
-        window.onresize = resize_navbar;
-
-    // --- END OF JS
+        $.getScript('/static/js/scrollspy_toc.js',function(){
+                $('html').fix_sidebar();
+        })
     });
-
-
 </script>
+

@@ -1,4 +1,7 @@
-.clickable-header{
+
+
+
+.clickable-header {
     padding-top: 55px; 
     margin-top: -55px;
 }
@@ -6,7 +9,7 @@
 #sidebar.affix {
     top: 20px;
 }
-.nav-no-border{
+.nav-no-border {
     -webkit-box-shadow: none;
     -moz-box-shadow: 0 2px 4px 0px;
     -o-box-shadow: 0 2px 4px 0px;

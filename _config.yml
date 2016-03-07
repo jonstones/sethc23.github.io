@@ -25,6 +25,7 @@ collections:
 
   reference:
     output: false
+    permalink: /reference
     defaults:
       - scope:
           path: ""
