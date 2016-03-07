@@ -1,16 +1,23 @@
-/* ============= SIDE NAV BAR ====================*/
-/* sidebar */
-.bs-docs-sidebar {
-    padding-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.page-header{
+    padding-top: 55px; 
+    margin-top: -55px;
 }
 
-.bs-docs-sidebar > ul{
-    width: 180px;
-    overflow-y: auto;
-    height: 100%;
+#sidebar.affix {
+    top: 20px;
 }
+/* sidebar */
+
+#rightCol,
+.bs-docs-sidebar,
+.bs-docs-sidebar .affix,
+.bs-docs-sidebar .affix-top {
+    position: fixed;
+    overflow-y: scroll;
+    height: 50%;
+    width: 16%;
+}
+
 
 /* all links */
 .bs-docs-sidebar .nav>li>a {
@@ -30,14 +37,19 @@
 }
 
 /* active & hover links */
+/*.bs-docs-sidebar .nav>li>ul>li.active,*/
 .bs-docs-sidebar .nav>.active>a, 
 .bs-docs-sidebar .nav>li>a:hover, 
-.bs-docs-sidebar .nav>li>a:focus {
+.bs-docs-sidebar .nav>li>a:focus,
+.bs-docs-sidebar .nav>li>ul:hover,
+.bs-docs-sidebar .nav>li>ul:focus {
     color: #563d7c;                 
     text-decoration: none;          
-    background-color: transparent;  
+    background-color: aquamarine;  
     border-left-color: #563d7c; 
 }
+
+
 /* all active links */
 .bs-docs-sidebar .nav>.active>a, 
 .bs-docs-sidebar .nav>.active:hover>a,

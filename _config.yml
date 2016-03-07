@@ -21,7 +21,7 @@ collections:
 
 collections:
   tabs:
-    output: false
+    output: true
 
   reference:
     output: false

@@ -1,6 +1,4 @@
 ---
-layout: reference
----
 ### GrayLog2 (server & interface)
 
 	wget http://packages.graylog2.org/releases/graylog2-setup/graylog2-setup-0.92.1.tar.gz

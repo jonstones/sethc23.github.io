@@ -161,9 +161,6 @@ def create_csv(df):
             # If md_dir exists, create sub header title
             # else, create md_dir and create sub header title
 
-            # if h_title=='Stack':
-            #     from ipdb import settrace; settrace()
-
             if len(sub_header_titles):
                 for i,row in sub_header_titles.iterrows():
                     new_content.append([row.l_header_val,

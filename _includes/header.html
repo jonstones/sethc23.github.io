@@ -1,7 +1,7 @@
 <header>
 
 <!-- navbar -->
-  <nav class="navbar navbar-inverse">
+  <nav id="top_navbar" class="navbar navbar-inverse" style="position: fixed;">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -24,6 +24,8 @@
           <li>
         {% endif %}
         <a href="{{ site.baseurl }}/"><span class="glyphicon glyphicon-briefcase"></span> Projects</a></li>
+
+        
 
         {% for p in site.tabs %}
             {% if p.url == page.url %}
