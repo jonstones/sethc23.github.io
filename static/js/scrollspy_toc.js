@@ -41,4 +41,17 @@ jQuery.fn.fix_sidebar = function () {
             }
         }
     });
+
+
+    function resize_right_col() {
+    $('#rightCol').css({left: ((parseInt($('#right_col_div').position().left) + 
+                                parseInt($('#right_col_div').css('width'))) - 
+                                parseInt($('#rightCol').css('width'))-15)})
+    };
+    resize_right_col();
+    $( window ).resize(function() {
+        resize_right_col();
+    });
+
+
 }

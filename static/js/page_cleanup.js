@@ -10,6 +10,9 @@ jQuery.fn.fix_navbar = function () {
     };
 
     resize_navbar();
-    window.onresize = resize_navbar;
+
+    $( window ).resize(function() {
+        resize_navbar();
+    });
 
 }
