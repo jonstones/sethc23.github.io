@@ -2,13 +2,13 @@
 """
 
 1. Sanitize all filenames, i.e., remove spaces
-2. Check if Markdown with directory name ("${DIR}.md") exists in directory, e.g., 'Python.md' in 'static/wiki/Python'
+2. Check if Markdown with directory name ("${DIR}.md") exists in directory, e.g., 'Python.md' in 'wiki/Python'
     a. if not, create such markdown from template and include links to all files and directories
     b. if md exists, append links to any files/directories not already included in markdown (except EXCLUDED)
 3. If other markdown files exist in directory:
     a. sort by (opts: leading numeric numbers, date modified, date created, filename)
     b. insert Markdown content into MD_DIR above appended links
-4. If sub directory exists in MD_DIR, then apply same function as above with prefix MD_DIR, e.g., 'Python.Sockets.md' in 'static/wiki/Python/Sockets'
+4. If sub directory exists in MD_DIR, then apply same function as above with prefix MD_DIR, e.g., 'Python.Sockets.md' in 'wiki/Python/Sockets'
 
 Caveats:
 
@@ -104,11 +104,11 @@ def sort_funct(df,sort_col='fname',sort_type=['leading_numeric', 'case_insensiti
         for it in sort_type:
             assert sort_cols.count('_sort_' + it)
         mod_sort_type = ['_sort_' + it for it in sort_type]
-        df.sort(columns=mod_sort_type,axis=0,inplace=True)
+        df.sort_values(by=mod_sort_type,axis=0,inplace=True)
         df.drop(sort_cols,axis=1,inplace=True)
         return df
     else:
-        return df.sort(sort_col,axis=0,inplace=True)
+        return df.sort_values(by=sort_col,axis=0,inplace=True)
 def remove_directory_markdowns(df):
     h_cols = [it for it in df.columns.tolist() if it[0]=='h' and it[1].isdigit()]
     for c in h_cols[1:]:
@@ -133,7 +133,7 @@ def create_missing_markdown_indicies(df):
     """
     h_cols = [it for it in df.columns.tolist() if it[0]=='h' and it[1].isdigit()]
     for c in h_cols[1:]:
-        hf = df[(df[c]!=df.fname) & (df[c].isnull()==False)].sort(c)
+        hf = df[(df[c]!=df.fname) & (df[c].isnull()==False)].sort_values(by=c)
         h_unique = hf[c].unique().tolist()
         for h in h_unique:
             h_title = h
@@ -261,7 +261,7 @@ def create_csv(df):
     return csv_content
 
 os.chdir('%s/sethc23.github.io' % os.environ['BD'])
-base_ref_dir = 'wiki/'
+base_ref_dir = '_wiki/'
 csv_fpath = '_data/wiki.csv'
 sort_type = ['leading_numeric', 'case_insensitive']
 remake_directory_markdowns = True
@@ -279,6 +279,6 @@ csv_out = create_csv(df)
 r=csv_out.split('\n')
 df=pd.DataFrame(columns=r[0].split(','),data=[it.split(',') for it in r[1:-1]])
 df['edit_path'] = df.ix[:,['fpath','f_ext']].apply(lambda s: s[0][:len(s[0]) - len(s[1]) - 1],axis=1)
-df.to_csv(csv_fpath)
+df.to_csv(csv_fpath,index=False)
 
-#print csv_out
+# print csv_out

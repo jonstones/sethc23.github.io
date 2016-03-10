@@ -25,11 +25,10 @@ collections:
 
   wiki:
     output: true
-    permalink: /wiki
+    #permalink: /wiki/:path/
     defaults:
       - scope:
           path: ""
-          type: wiki
         values:
           layout: wiki
 
@@ -155,4 +154,4 @@ gems:
   - jekyll-sitemap
   - octopress-date-format
   - octopress-debugger
-#  - jekyll-paginate  
+  - jekyll-paginate

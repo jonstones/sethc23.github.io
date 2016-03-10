@@ -23,7 +23,8 @@
           {% else %}
           <li>
         {% endif %}
-        <a href="{{ site.baseurl }}/"><span class="glyphicon glyphicon-briefcase"></span> Projects</a></li>
+
+        <a href="{{ site.baseurl }}/"><img class="top_navbar_icons"  src="/static/css/pics/glyphicons/png/glyphicons-briefcase.png"> Projects</a></li>
 
         
 
@@ -33,7 +34,7 @@
             {% else %}
                 <li>
             {% endif %}
-            <a href="{{ p.url | prepend: site.baseurl }}"><span class="glyphicon {{ p.icon }}"></span> {{ p.title }}</a>
+            <a href="{{ p.url | prepend: site.baseurl }}"><img class="top_navbar_icons" src="/static/css/pics/glyphicons/png/glyphicons-{{ p.icon }}.png"> {{ p.title }}</a>
             </li>
         {% endfor %}
 
@@ -42,7 +43,7 @@
           {% else %}
           <li>
         {% endif %}
-        <a href="{{ '/wiki/' | prepend: site.baseurl }}"><span class="glyphicon glyphicon-book"></span> Wiki</a></li>
+        <a href="{{ '/wiki/' | prepend: site.baseurl }}"><img class="top_navbar_icons"  src="/static/css/pics/glyphicons/png/glyphicons-notes.png"> Wiki</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
