@@ -7,10 +7,13 @@
 - - -
 
 ## Update NPM
+
 ```bash
 sudo npm install npm -g
 ```
+
 ## Update Node.js
+
 ```bash
 sudo npm cache clean -f
 sudo npm install -g n
