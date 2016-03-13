@@ -1,0 +1,7 @@
+---
+- [MacPorts Guide.pdf](OSX/Macports/MacPorts_Guide.pdf)
+- [installing non-macport modules.pdf](OSX/Macports/installing_non-macport_modules.pdf)
+- [migrate MacPorts.pdf](OSX/Macports/migrate_MacPorts.pdf)
+- [Macports.md](OSX/Macports/Macports.md)
+- [macport shortcuts.txt](OSX/Macports/macport_shortcuts.txt)
+- [2012.02.04 myports.txt](OSX/Macports/2012.02.04_myports.txt)

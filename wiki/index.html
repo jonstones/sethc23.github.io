@@ -1,0 +1,55 @@
+---
+title: Wiki
+icon: glyphicon-book
+layout: wiki
+permalink: /wiki/
+---
+
+<div id="index" class="container bs-docs-container row" style="margin-left: -30px">
+    <div class="col-sm-9" id="all_ref_content" role="main">
+        <div class="ref-area ref-list-body">
+                
+                {% assign wiki_pages = site.collections | where: "label", "wiki" | first %}
+
+                {% for ref in site.data.wiki %}
+                    
+                    <div class="bs-docs-section ref-area ref">
+                        <hr>
+
+                        <h{{ ref.header_val }} class="page-header" 
+                        id="{{ ref.fpath | replace: '/','_' | replace: '.','' }}"
+                        >{{ ref.title }} <a href="/../edit/_edit/{{ ref.edit_path }}">
+                        <img style="height: 10px;" src="/static/css/pics/glyphicons/png/glyphicons-edit.png" >
+                        </a></h{{ ref.header_val }}>
+
+                        {% for doc in wiki_pages.docs %}
+
+                            {% if doc.path contains ref.fpath %}
+                                <div class='ref-content_md'>{{ doc.content | remove_first: '<hr>' | markdownify }}</div>
+                            {% endif %}
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endfor %}
+                
+                
+        </div>
+    </div>
+    <div class="col-md-3" id="right_col_div" role="complementary">              
+        <nav class="bs-docs-sidebar affix-top nav-no-border" id="rightCol">
+            <ul class="nav bs-docs-sidenav nav-no-border" id="sidebar">
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.getScript('/static/js/scrollspy_toc.js',function(){
+                $('html').fix_sidebar();
+        })
+    });
+</script>
+
