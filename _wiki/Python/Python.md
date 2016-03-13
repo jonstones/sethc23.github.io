@@ -40,3 +40,9 @@
 - [smtp2web.com  Bridge SMTP to HTTP.pdf](Python/smtp2web.com__Bridge_SMTP_to_HTTP.pdf)
 - [The Shapely User Manual — Shapely 1.2 and 1.3 documentation.pdf](Python/The_Shapely_User_Manual_—_Shapely_1.2_and_1.3_documentation.pdf)
 - [urllib2 — extensible library for opening URLs.pdf](Python/urllib2_—_extensible_library_for_opening_URLs.pdf)
+
+- - -
+
+#### Pip
+
+`sudo pip install --pre -e .`
