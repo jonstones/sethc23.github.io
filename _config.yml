@@ -95,7 +95,7 @@ collections:
 
 # Conversion
 markdown:                       kramdown
-highlighter:                    pygments    # rouge
+highlighter:                    rouge
 # highlight
 # 本地用rouge, github上用pygments
 # highlighter: pygments
