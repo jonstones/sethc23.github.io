@@ -1,5 +1,6 @@
 ---
 
+
 #### Identify location of script
 
 Generally,
@@ -19,8 +20,8 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 ```
 
-- - -
 
+- - -
 - [1unix linux ref.pdf](Linux_Unix/1unix_linux_ref.pdf)
 - [A How to Guide on Modern Monitoring and Alerting - DevOps.comDevOps.pdf](Linux_Unix/A_How_to_Guide_on_Modern_Monitoring_and_Alerting_-_DevOps.comDevOps.pdf)
 - [BashStartupFiles1.png](Linux_Unix/BashStartupFiles1.png)
