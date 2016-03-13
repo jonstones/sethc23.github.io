@@ -20,6 +20,21 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 ```
 
+### ZSH and Oh-My-Zsh (OMZ)
+
+##### Plugins
+
+- OSX
+  
+    ![](http://sethc23.github.io/wiki/Linux_Unix/osx_zsh.png)
+
+- [Z (mod)](https://github.com/rupa/z)
+
+<iframe width="75%" src="https://raw.githubusercontent.com/rupa/z/master/README"></iframe>
+
+
+
+  
 
 - - -
 - [1unix linux ref.pdf](Linux_Unix/1unix_linux_ref.pdf)
