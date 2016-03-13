@@ -1,0 +1,7 @@
+---
+- [lion metadata.pdf](GIS/NYC_Data/lion_metadata.pdf)
+- [meta mappluto.pdf](GIS/NYC_Data/meta_mappluto.pdf)
+- [pad info.pdf](GIS/NYC_Data/pad_info.pdf)
+- [pluto datadictionary.pdf](GIS/NYC_Data/pluto_datadictionary.pdf)
+- [SND metadata.pdf](GIS/NYC_Data/SND_metadata.pdf)
+- [SND userguide.pdf](GIS/NYC_Data/SND_userguide.pdf)
