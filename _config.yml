@@ -94,7 +94,7 @@ collections:
 #unpublished:                    false
 
 # Conversion
-markdown:                       redcarpet
+markdown:                       kramdown
 highlighter:                    pygments    # rouge
 # highlight
 # 本地用rouge, github上用pygments
@@ -125,10 +125,10 @@ quiet:                          false
 rdiscount:
   extensions:                   ["generate_toc"]
 
-redcarpet:
-  extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough",
-                                 "space_after_headers","superscript","underline","highlight","footnotes",
-                                 "with_toc_data","prettify","lax_spacing"]
+# redcarpet:
+#   extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough",
+#                                  "space_after_headers","superscript","underline","highlight","footnotes",
+#                                  "with_toc_data","prettify","lax_spacing"]
 
 kramdown:
 #  input:                        GFM
