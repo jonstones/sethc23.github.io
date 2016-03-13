@@ -1,3 +1,0 @@
----
-- [VB Finding and Replacing Text or Formatting.pdf](Visual_Basic/VB_Finding_and_Replacing_Text_or_Formatting.pdf)
-- [VB If   Then   Else Statements.pdf](Visual_Basic/VB_If___Then___Else_Statements.pdf)

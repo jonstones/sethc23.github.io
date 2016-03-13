@@ -1,3 +1,0 @@
----
-- [Packt.PostgreSQL.Server.Programming.Jun.2013.ISBN.1849516987.pdf](Stack/pgSQL/Packt.PostgreSQL.Server.Programming.Jun.2013.ISBN.1849516987.pdf)
-- [pgSQL date patterns.pdf](Stack/pgSQL/pgSQL_date_patterns.pdf)
