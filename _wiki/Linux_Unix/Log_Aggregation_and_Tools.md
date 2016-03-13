@@ -21,5 +21,5 @@
 	Kafka 
 	
 	syslog-ng => rabbitmq => elasticsearch
-
-syslog-ng + patterndb 
+	
+	syslog-ng + patterndb 

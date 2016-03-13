@@ -18,9 +18,10 @@ permalink: /wiki/
 
                         <h{{ ref.header_val }} class="page-header" 
                         id="{{ ref.fpath | replace: '/','_' | replace: '.','' }}"
-                        >{{ ref.title }} <a href="/../edit/_edit/{{ ref.edit_path }}">
-                        <img style="height: 10px;" src="/static/css/pics/glyphicons/png/glyphicons-edit.png" >
-                        </a></h{{ ref.header_val }}>
+                        >{{ ref.title }} <a href="http://wiki.sanspaper.com/_edit/{{ ref.edit_path }}"
+                        target="_blank"><img style="height: 10px;" 
+                        src="/static/css/pics/glyphicons/png/glyphicons-edit.png" ></a>
+                        </h{{ ref.header_val }}>
 
                         {% for doc in wiki_pages.docs %}
 
