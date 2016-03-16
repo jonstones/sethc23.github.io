@@ -15,6 +15,7 @@ Caveats:
     - directory names cannot start with '_' due to jekyll's site generation engine
 
 """
+global base_ref_dir,EXCLUDE_DIRS,INCLUDE_EXTENSIONS,df
 
 import re,time
 import pandas as pd
@@ -22,8 +23,6 @@ import os
 
 
 def get_file_list():
-    # excluded_dirs = [os.path.join(base_ref_dir,it) for it in EXCLUDE_DIRS]
-    excluded_dirs = EXCLUDE_DIRS
     _files = []
     for root, sub_dir, files in os.walk(base_ref_dir):
         for f in files:
@@ -241,6 +240,7 @@ def create_csv(df):
             d = nf[nf.fname==h_title+'.md']
             r = d.loc[d.first_valid_index()]
         except:
+            import ipdb as I; I.set_trace()
             print(''.join(['Could not find "%s" in %s.\n',
                            'Consider using function ',
                            '"create_missing_markdown_indicies."']) % 
@@ -264,25 +264,58 @@ def create_csv(df):
             h_pt += 1
     return csv_content
 
-os.chdir('%s/sethc23.github.io' % os.environ['BD'])
-base_ref_dir = '_wiki/'
-csv_fpath = '_data/wiki.csv'
-sort_type = ['leading_numeric', 'case_insensitive']
-remake_directory_markdowns = True
-include_everything = False
-EXCLUDE_DIRS = ['_site','.git','_POSTS']
-INCLUDE_EXTENSIONS = ['md','markdown']
+def make_wiki_csv():
+    os.chdir('%s/sethc23.github.io' % os.environ['BD'])
+    base_ref_dir = '_wiki/'
+    csv_fpath = '_data/wiki.csv'
+    sort_type = ['leading_numeric', 'case_insensitive']
+    remake_directory_markdowns = False
+    include_everything = False
+    EXCLUDE_DIRS = ['_site','.git','_POSTS']
+    INCLUDE_EXTENSIONS = ['md','markdown']
 
+    df = get_file_list()
+    # df = sanitize_filenames(df)
+    # df = remove_directory_markdowns(df)
+    # df = create_missing_markdown_indicies(df)
+    csv_out = create_csv(df)
 
-df = get_file_list()
-# df = sanitize_filenames(df)
-# df = remove_directory_markdowns(df)
-# df = create_missing_markdown_indicies(df)
-csv_out = create_csv(df)
+    r=csv_out.split('\n')
+    df=pd.DataFrame(columns=r[0].split(','),data=[it.split(',') for it in r[1:-1]])
+    df['edit_path'] = df.ix[:,['fpath','f_ext']].apply(lambda s: s[0][:len(s[0]) - len(s[1]) - 1],axis=1)
+    df.to_csv(csv_fpath,index=False)
 
-r=csv_out.split('\n')
-df=pd.DataFrame(columns=r[0].split(','),data=[it.split(',') for it in r[1:-1]])
-df['edit_path'] = df.ix[:,['fpath','f_ext']].apply(lambda s: s[0][:len(s[0]) - len(s[1]) - 1],axis=1)
-df.to_csv(csv_fpath,index=False)
+    # print csv_out
 
-# print csv_out
+def make_blog_csv():
+    base_ref_dir = '_POSTS'
+    os.chdir('%s/sethc23.github.io/' % os.environ['BD'] + '_wiki/')
+    csv_fpath = '_data/blog.csv'
+    sort_type = ['leading_numeric', 'case_insensitive']
+    remake_directory_markdowns = False
+    include_everything = False
+    EXCLUDE_DIRS = []
+    INCLUDE_EXTENSIONS = ['md','markdown']
+
+    df = get_file_list()
+    print "NEEDS WORK"
+    raise SystemExit
+    # df = df.ix[:,['fpath','l_fname']]
+    # csv_out = create_csv(df)
+
+    # r=csv_out.split('\n')
+    # df=pd.DataFrame(columns=r[0].split(','),data=[it.split(',') for it in r[1:-1]])
+    # df['edit_path'] = df.ix[:,['fpath','f_ext']].apply(lambda s: s[0][:len(s[0]) - len(s[1]) - 1],axis=1)
+    # df.to_csv(csv_fpath,index=False)
+
+    # print csv_out
+
+from sys import argv
+if __name__ == '__main__':
+    args = argv[1:]
+    
+    if argv[1]=='wiki':
+        make_wiki_csv()
+
+    elif argv[1]=='blog':
+        make_blog_csv()

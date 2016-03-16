@@ -1,5 +1,5 @@
 
-system './py_scripts/wiki_data_file_generator.py'
+system './_data/data_file_generator.py wiki'
 
 source 'https://rubygems.org'
 
