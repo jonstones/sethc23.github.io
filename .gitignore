@@ -6,3 +6,5 @@
 
 _site/
 _wiki/.git/
+ENV/*
+*pyc
