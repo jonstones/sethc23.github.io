@@ -26,13 +26,37 @@ layout: page
 
                         <a class="post-list-item"
                            href="{{ post.url | prepend: site.baseurl }}">
-                            <h2>{{ post.title }}</h2>
+                            
+                            <div class="blog_entry_top">
+                            <h2>
+                            <span class="blog_entry_top_left">{{ post.title }}</span>
+                            <span class="blog_entry_top_right"></span>
+                            </h2>
+                            </div>
 
-                            {% if tags_exist %}
-                                <ul>Tags: {{ post.tags | sort | join: ', ' }}</ul>
-                            {% endif %}
+                            <div class="blog_entry_mid">
+                            <h2>
+                            <span class="blog_entry_mid_left">
+                                {% if tags_exist %}Tags:&nbsp;&nbsp;</span><span class="blog_entry_mid_left_block">  {{ post.tags | sort | join: ', ' }}{% endif %}
+                            </span>
 
-                            <span class="">{{ post.date | date: "%b %-d, %Y" }}</span>
+                            <span class="blog_entry_mid_right">
+                                <img id="{{ post.relative_path | replace_first: '_posts/','' | split:'.md' | first  }}"
+                                    class="edit_blog_entry_icon"
+                                    src="/static/css/pics/glyphicons/png/glyphicons-edit.png">
+                                &nbsp;&nbsp;
+                            </span>
+                            </h2>
+                            </div>
+
+                            
+                            <div></div>
+                            
+
+                            <div class="blog_entry_bottom">
+                            <span class="blog_entry_bottom_left">{{ post.date | date: "%b %-d, %Y" }}</span>
+                            <span class="blog_entry_bottom_right"></span>
+                            </div>
                         </a>
 
 
@@ -109,6 +133,32 @@ layout: page
                     str_output = str_output + "<a href=\"javascript:;\" class=\"categories-list-item\" cate=\""+prop+"\">"+prop+"<span class=\"my-badge\">"+counts[prop]+"</span> </a>";
                 }
                 document.write(str_output);
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('img').click(function() {
+                        window.open( "http://wiki.sanspaper.com/_edit/1_POSTS/" + this.id, '_blank');
+                        console.log("clicked");
+                    });
+                });
+
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('img').on( { 
+                        mouseenter: function() {
+                            var big_link = $('img[id*=' + this.id + ']').parents('a');
+                            var location = big_link.attr("href");
+                            big_link.bind('click', false);
+                            console.log("enter");
+                        },
+                        mouseleave: function() {
+                            var big_link = $('img[id*=' + this.id + ']').parents('a');
+                            console.log("leave");
+                            big_link.unbind('click', false);
+                        }
+                     });
+                });
             </script>
 
             </a>

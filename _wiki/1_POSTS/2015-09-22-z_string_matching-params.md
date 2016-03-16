@@ -6,7 +6,9 @@ tags: pgxz-function function-definition work-in-progress
 
 
 ## **string_matching(*qry_a*, *qry_b*, *params_as_json*)**
+
 </br>
+
 #### _Methodology_:
 
 
@@ -16,7 +18,9 @@ tags: pgxz-function function-definition work-in-progress
 
 #### _Query Strings_: 
 
-This function returns a number between 0 and 1 quantifying the similarity between the results of two *postgreSQL* search queries.  The input queries `qry_a` and `qry_b` must designate the aliases (`a_str`, `a_idx`) and (`b_str`, `b_idx`), respectively. For example:
+This function returns a number between 0 and 1 quantifying the similarity between the results of two *postgreSQL* search queries.  The input queries `qry_a` and `qry_b` must designate the aliases (`a_str`, `a_idx`) and (`b_str`, `b_idx`), respectively. 
+
+#### For example, these tables:
 
 
 
@@ -29,6 +33,7 @@ CREATE TABLE z_string_test_1 AS (
         ARRAY['DUANE','MARHTA','DICKSONX'] b_str,
         ARRAY[2,3,4] b_idx
 );
+
 DROP TABLE IF EXISTS z_string_test_2;
 CREATE TABLE z_string_test_2 AS (
     SELECT
@@ -40,8 +45,8 @@ CREATE TABLE z_string_test_2 AS (
 );
 ```
 
+#### queried as:
 
-</br>
 
 
 ```PLpgSQL
@@ -50,57 +55,7 @@ SELECT * FROM z_string_matching(
     'SELECT b_str b_str,b_idx b_idx FROM z_string_test_2',
     'false'
 )
-```
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th></th>
-      <th>a_idx</th>
-      <th>a_str</th>
-      <th>jaro_score</th>
-      <th>b_str</th>
-      <th>b_idx</th>
-      <th>other_matches</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>MARTHA</td>
-      <td>0.94444444444444</td>
-      <td>MARHTA</td>
-      <td>3</td>
-      <td>{}</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>DWAYNE</td>
-      <td>0.82222222222222</td>
-      <td>DUANE</td>
-      <td>2</td>
-      <td>{}</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>DIXON</td>
-      <td>0.76666666666667</td>
-      <td>DICKSONX</td>
-      <td>4</td>
-      <td>{}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-</br>
-
-
-```PLpgSQL
 SELECT * FROM z_string_matching(
     'SELECT UNNEST(a_str) a_str,UNNEST(a_idx) a_idx FROM z_string_test_1',
     'SELECT UNNEST(b_str) b_str,UNNEST(b_idx) b_idx FROM z_string_test_1',
@@ -108,51 +63,27 @@ SELECT * FROM z_string_matching(
 )
 ```
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th></th>
-      <th>a_idx</th>
-      <th>a_str</th>
-      <th>jaro_score</th>
-      <th>b_str</th>
-      <th>b_idx</th>
-      <th>other_matches</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>MARTHA</td>
-      <td>0.94444444444444</td>
-      <td>MARHTA</td>
-      <td>3</td>
-      <td>{}</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>DWAYNE</td>
-      <td>0.82222222222222</td>
-      <td>DUANE</td>
-      <td>2</td>
-      <td>{}</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>DIXON</td>
-      <td>0.76666666666667</td>
-      <td>DICKSONX</td>
-      <td>4</td>
-      <td>{}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</br>
+<br>
+
+#### each produces the [generally accepted results](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance):
+
+<br>
+
+| # | a_idx | a_str | jaro_score | b_str | b_idx | other_matches |
+|---
+| 0 | 1 | MARTHA | 0.9444 | MARHTA | 3 | {} |
+| 1 | 2 | DWAYNE | 0.8222 | DUANE | 2 | {} |
+| 2 | 3 | DIXON | 0.7667 | DICKSONX | 4 | {} |
+
+
+<br>
+
+
+
+
+
+<br>
+  
 Of further note:  
 
 1. the Jaro-Winkler algorithm values first letter(s) matches >> last letter matches
@@ -179,6 +110,7 @@ Some general points:
 
 
 *PARAMETERS*:
+
 <br>
 
 > _**`first_match_only`**_: Upon finding a `b_str` match for a particular `a_str` given the input criteria, stop further processing re: `a_str` and return the first-matched `b_str`.  This option often works well in conjunction with minimal iterative steps and high-score conditions to quickly extract the easy matches and minimize the number of future, more arduous, steps.

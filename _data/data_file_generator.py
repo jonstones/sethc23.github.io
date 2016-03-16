@@ -15,7 +15,6 @@ Caveats:
     - directory names cannot start with '_' due to jekyll's site generation engine
 
 """
-global base_ref_dir,EXCLUDE_DIRS,INCLUDE_EXTENSIONS,df
 
 import re,time
 import pandas as pd
@@ -265,13 +264,14 @@ def create_csv(df):
     return csv_content
 
 def make_wiki_csv():
+    global base_ref_dir,EXCLUDE_DIRS,INCLUDE_EXTENSIONS,df
     os.chdir('%s/sethc23.github.io' % os.environ['BD'])
     base_ref_dir = '_wiki/'
     csv_fpath = '_data/wiki.csv'
     sort_type = ['leading_numeric', 'case_insensitive']
     remake_directory_markdowns = False
     include_everything = False
-    EXCLUDE_DIRS = ['_site','.git','_POSTS']
+    EXCLUDE_DIRS = ['_site','.git','1_POSTS']
     INCLUDE_EXTENSIONS = ['md','markdown']
 
     df = get_file_list()
@@ -288,6 +288,7 @@ def make_wiki_csv():
     # print csv_out
 
 def make_blog_csv():
+    global base_ref_dir,EXCLUDE_DIRS,INCLUDE_EXTENSIONS,df
     base_ref_dir = '_POSTS'
     os.chdir('%s/sethc23.github.io/' % os.environ['BD'] + '_wiki/')
     csv_fpath = '_data/blog.csv'

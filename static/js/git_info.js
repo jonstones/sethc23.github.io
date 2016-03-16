@@ -148,7 +148,7 @@ jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
 
     
     var token = $.fn.simpleCipher("decode",
-                                  "IKHIgGDgGGffEgHfHEfHFKhGGBgfJjKhCKJijFhH");
+                                  "khjFBigJIGiDjDFffCkCfEifCGhGGKCJCHiGFEDF");
 
     // console.log("firstGet");
     // console.log(token);
