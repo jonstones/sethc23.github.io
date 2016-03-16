@@ -10,6 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ```
 
 If symlinked,
+
 ```bash
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -22,16 +23,15 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 ### ZSH and Oh-My-Zsh (OMZ)
 
-##### Plugins
+#### Plugins
+
+- autojump (installed via apt-get/macports)
 
 - OSX
-  
-    ![](http://sethc23.github.io/wiki/Linux_Unix/osx_zsh.png)
 
-- [Z (mod)](https://github.com/rupa/z)
+    ![](https://raw.githubusercontent.com/sethc23/sethc23.github.io/master/_wiki/Linux_Unix/osx_zsh.jpg)
 
-<iframe width="75%" src="https://raw.githubusercontent.com/rupa/z/master/README"></iframe>
-
+- [Z (mod)](https://github.com/rupa/z) @  [Github](https://raw.githubusercontent.com/rupa/z/master/README)
 
 
   

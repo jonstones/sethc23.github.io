@@ -9,3 +9,4 @@ _wiki/.git/
 ENV/*
 *pyc
 _OLD/
+_data/check_build_status*
