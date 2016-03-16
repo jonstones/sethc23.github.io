@@ -76,13 +76,8 @@ SELECT * FROM z_string_matching(
 | 2 | 3 | DIXON | 0.7667 | DICKSONX | 4 | {} |
 
 
-<br>
+-  -  -
 
-
-
-
-
-<br>
   
 Of further note:  
 
@@ -91,8 +86,7 @@ Of further note:
 3. `other_matches` is the index (i.e., `b_idx`) of the other `b_str` matches having the same best jaro score
 4. avoid using **"pllua_"** as a prefix for any alias relating to `qry_a` or `qry_b`
 
-
-</br>
+- - -
 
 #### _Parameter String_:
 
