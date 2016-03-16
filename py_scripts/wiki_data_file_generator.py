@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/ub2/.virtualenvs/devenv/bin/python
 """
 
 1. Sanitize all filenames, i.e., remove spaces
@@ -22,14 +22,18 @@ import os
 
 
 def get_file_list():
-    excluded_dirs = [os.path.join(base_ref_dir,it) for it in EXCLUDE_DIRS]
+    # excluded_dirs = [os.path.join(base_ref_dir,it) for it in EXCLUDE_DIRS]
+    excluded_dirs = EXCLUDE_DIRS
     _files = []
     for root, sub_dir, files in os.walk(base_ref_dir):
-        if not excluded_dirs.count(root):
-            for f in files:
-                _files.append(os.path.join(root,f))
-    df = pd.DataFrame({'fpath':_files})  
-    h_dir=1
+        for f in files:
+            _files.append(os.path.join(root,f))
+    df = pd.DataFrame({'fpath':_files})
+    for it in EXCLUDE_DIRS:
+        idx = df[df.fpath.str.contains('/%s/' % it)].index.tolist()
+        df.drop(idx, axis=0, inplace=True)
+    df = df.reset_index(drop=True)
+    h_dir = 1
     new_col = 'h%s'%h_dir
     df['fname'],df[new_col] = zip(*df.fpath.apply(lambda s: '|'.join([s[len(base_ref_dir):].split('/')[-1],s[len(base_ref_dir):].split('/')[0]]).split('|')))
     n = df[(df.fname!=df[new_col]) & (df[new_col].isnull()==False)].index.tolist()
@@ -237,9 +241,9 @@ def create_csv(df):
             d = nf[nf.fname==h_title+'.md']
             r = d.loc[d.first_valid_index()]
         except:
-            print('Could not find "%s" in %s. \
-            Consider using function \
-            "create_missing_markdown_indicies"' % 
+            print(''.join(['Could not find "%s" in %s.\n',
+                           'Consider using function ',
+                           '"create_missing_markdown_indicies."']) % 
                   (h_title+'.md',base_ref_dir + h_title))
             raise SystemExit
         
@@ -266,7 +270,7 @@ csv_fpath = '_data/wiki.csv'
 sort_type = ['leading_numeric', 'case_insensitive']
 remake_directory_markdowns = True
 include_everything = False
-EXCLUDE_DIRS = ['_site']
+EXCLUDE_DIRS = ['_site','.git','_POSTS']
 INCLUDE_EXTENSIONS = ['md','markdown']
 
 

@@ -1,11 +1,10 @@
 
-#system '/usr/bin/python ./py_scripts/wiki_data_file_generator.py'
+system './py_scripts/wiki_data_file_generator.py'
 
 source 'https://rubygems.org'
 
 require 'json'
 require 'open-uri'
-
 
 gem 'octopress'
 gem 'github-pages'
