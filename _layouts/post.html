@@ -6,7 +6,7 @@ layout: default
         <div class="post-area post">
             <header>
                 <h1>
-                <a href="http://wiki.sanspaper.com/1_POSTS/{{ page.relative_path | replace_first: '_posts/','' | split:'.md' | first }}"
+                <a href="http://wiki.sanspaper.com/1_POSTS/{{ page.relative_path | replace_first: '_posts/','' | split:'.md' | first | append: '.md' }}"
                 target="_self">{{ page.title }}</a>
                 </h1>
                 
