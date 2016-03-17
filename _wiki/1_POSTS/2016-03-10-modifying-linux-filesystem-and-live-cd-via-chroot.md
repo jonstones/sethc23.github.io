@@ -1,8 +1,3 @@
----
-title: Modifying Linux filesytem and Live CD via chroot
-layout: post
-tags: linux unix chroot livecd recovery
----
 
 ```bash
 ap_install debootstrap gparted squashfs-tools genisoimage
