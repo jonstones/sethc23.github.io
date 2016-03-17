@@ -36,9 +36,13 @@ layout: page
 
                             <div class="blog_entry_mid">
                             <h2>
-                            <span class="blog_entry_mid_left">
-                                {% if tags_exist %}Tags:&nbsp;&nbsp;</span><span class="blog_entry_mid_left_block">  {{ post.tags | sort | join: ', ' }}{% endif %}
-                            </span>
+                            <span class="blog_entry_mid_left"></span>
+
+                            {% if tags_exist %}
+                                <span class="blog_entry_mid_left_block">
+                                    {{ post.tags | sort | join: ', ' }}
+                                </span>
+                            {% endif %}
 
                             <span class="blog_entry_mid_right">
                                 <img id="{{ post.relative_path | replace_first: '_posts/','' | split:'.md' | first  }}"

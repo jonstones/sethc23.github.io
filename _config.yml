@@ -93,17 +93,6 @@ collections:
 #future:                         false
 #unpublished:                    false
 
-# Conversion
-markdown:                       kramdown
-highlighter:                    rouge
-# highlight
-# 本地用rouge, github上用pygments
-# highlighter: pygments
-# highlighter: rouge
-# highlighter: false
-lsi:                            false
-excerpt_separator:              "\n\n"
-
 # Serving
 #detach:                         false
 port:                           28901
@@ -121,17 +110,18 @@ timezone:                       America/New_York
 quiet:                          false
 # defaults:                       []
 
-# Markdown Processors
-rdiscount:
-  extensions:                   ["generate_toc"]
+lsi:                            false
+excerpt_separator:              "\n\n"
 
-# redcarpet:
-#   extensions:                   ["no_intra_emphasis", "tables", "autolink", "strikethrough",
-#                                  "space_after_headers","superscript","underline","highlight","footnotes",
-#                                  "with_toc_data","prettify","lax_spacing"]
+# rdiscount:
+#   extensions:                   ["generate_toc"]
 
+markdown:                       kramdown
 kramdown:
-#  input:                        GFM
+  input:                        GFM
+  auto_ids:                     true
+  auto_id_prefix:               true
+  auto_id_stripping:            true
   auto_ids:                     true
   footnote_nr:                  1
   entity_output:                as_char
@@ -146,6 +136,38 @@ kramdown:
     coderay_tab_width:          4
     coderay_bold_every:         10
     coderay_css:                style
+    coderay_default_lang:       markdown
+    coderay_line_number_start:  1           # default: 1
+    coderay_line_numbers:       inline      # :table, :inline or nil.
+    coderay_wrap:               div         # :span, :div or nil.
+    entity_output:              as_input, numeric, symbolic, as_char (default)
+    footnote_backlink:          ‘&8617;’    # default
+    footnote_nr:                0           # number of first footnote
+    hard_wrap:                  true
+    header_offset:              0           # default:0
+    html_to_native:             false
+    latex_headers:              section,subsection,subsubsection,paragraph,subparagraph,subparagraph
+    line_width:                 72
+    link_defs:                  {} # predefines link def.s
+    math_engine:                {}
+    math_engine_opt:            {}
+    parse_block_html:           false
+    parse_span_html:            true
+    remove_block_html_tags:     true
+    remove_span_html_tags:      false
+    smart_quotes:               lsquo,rsquo,ldquo,rdquo
+    syntax_highlighter:         coderay
+    # syntax_highlighter:         rouge
+    syntax_highlighter_opts:    {}
+    template:                   ''
+    toc_levels:                 1..6
+    transliterated_header_ids:  false
+
+    # kramdown Syntax:          http://kramdown.gettalong.org/syntax.html
+    # kramdown Quick Reference: http://kramdown.gettalong.org/quickref.html
+
+    # Set per-document Kramdown command-line options in file
+    # {::options auto_ids="false" footnote_nr="5" /}
 
 # ------------------------------
 # ------------------------------
