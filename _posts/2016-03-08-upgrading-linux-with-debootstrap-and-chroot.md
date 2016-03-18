@@ -15,6 +15,7 @@ comments: true
 
 ## Other Cases:
 
+
 1. Format and Partition Hard Disk
 	`gparted`
     - making first partition with:
@@ -22,6 +23,7 @@ comments: true
         - <mark>boot</mark> and <mark>esp</mark> flags
     - including an extra partition for persistence later
     - likely use <mark>ext4</mark> for linux
+
 
 2. Bootstrap the OS
 
@@ -38,6 +40,7 @@ comments: true
 		- $MNT, e.g., /mnt
 		- $URL_SRC, e.g., http://archive.ubuntu.com/ubuntu
 
+
 3. Prepare to chroot
 
     a. `sysctl kernel.hostname=NEW_HOSTNAME`
@@ -50,6 +53,7 @@ comments: true
 	- /mnt/etc/hosts
 	- /mnt/etc/resolv.conf
 
+
 4. Chroot into target disk/OS
 
     {:.bash}
@@ -60,6 +64,7 @@ comments: true
         passwd
         # below creates a user and switch shadow password on
         dpkg-reconfigure --default-priority passwd
+
 
 5. Installing Packages
 
@@ -79,7 +84,7 @@ comments: true
             echo 'LANGUAGE="en_US:en"' >> /etc/environment
 
 
-5. Gracefully end chroot
+6. Gracefully end chroot
 
     {:.bash}
         exit
