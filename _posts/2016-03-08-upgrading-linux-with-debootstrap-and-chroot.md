@@ -49,7 +49,6 @@ comments: true
     > /mnt/etc/network/interfaces
    
 	> /mnt/etc/hosts
-   
 	> /mnt/etc/resolv.conf
 
 4. Chroot into target disk/OS
