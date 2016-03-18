@@ -45,10 +45,10 @@ comments: true
     b. Plan on copying fstab to target disk and using blkid to identify target disk UUID that will replace fstab source disk UUID
 
     c. Consider copying network info before rebooting:
-
-    	i. /mnt/etc/network/interfaces
-    	ii. /mnt/etc/hosts
-    	iii. /mnt/etc/resolv.conf
+    
+    > /mnt/etc/network/interfaces
+    > /mnt/etc/hosts
+    > /mnt/etc/resolv.conf
 
 4. Chroot into target disk/OS
 
@@ -64,10 +64,9 @@ comments: true
 5. Installing Packages
 
 	- Basics:
-		- apt-get update
-		- openssh-server
-		- ubuntu-standard
-		- linux-image-$ARCH
+		{:.bash}
+            sudo apt-get update
+            sudo apt-get install openssh-server ubuntu-standard linux-image-$ARCH
 
 	- Perhaps copy "some" packages from existing system:
 		- `dpkg --get-selections | grep "install" | cut -f1`

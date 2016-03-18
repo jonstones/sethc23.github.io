@@ -203,7 +203,7 @@ This can contain only *span* level elements.
 
 [^codeblock-note]:
         this is now a code block (8 spaces indentation)
- 
- 
+
+
 
 ---
