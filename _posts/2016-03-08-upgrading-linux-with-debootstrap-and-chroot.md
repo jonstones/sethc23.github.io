@@ -58,9 +58,6 @@ comments: true
         passwd
         # below creates a user and switch shadow password on
         dpkg-reconfigure --default-priority passwd
-        
-
-
 
 5. Installing Packages
 
@@ -75,10 +72,10 @@ comments: true
 		- [one list of transferred packages](http://pastebin.com/ej2p0Mt3)
 
     - Maybe set some environment vars
-
-        locale-gen en_US.UTF-8
-        echo 'LANG="en_US.UTF-8"' >> /etc/environment
-        echo 'LANGUAGE="en_US:en"' >> /etc/environment
+		{:.bash}
+            locale-gen en_US.UTF-8
+            echo 'LANG="en_US.UTF-8"' >> /etc/environment
+            echo 'LANGUAGE="en_US:en"' >> /etc/environment
 
 
 5. Gracefully end chroot
