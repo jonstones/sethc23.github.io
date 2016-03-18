@@ -19,9 +19,9 @@ comments: true
 	`gparted`
     - making first partition with:
         - <mark>fat32</mark> format
-        - `boot` and `esp` flags
+        - <mark>boot</mark> and <mark>esp</mark> flags
     - including an extra partition for persistence later
-    - likely use `ext4` for linux
+    - likely use <mark>ext4</mark> for linux
 
 2. Bootstrap the OS
 
