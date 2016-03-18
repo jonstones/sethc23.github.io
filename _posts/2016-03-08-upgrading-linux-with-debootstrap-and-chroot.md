@@ -45,9 +45,10 @@ comments: true
     b. Plan on copying fstab to target disk and using blkid to identify target disk UUID that will replace fstab source disk UUID
 
     c. Consider copying network info before rebooting:
-    - /mnt/etc/network/interfaces
-    - /mnt/etc/hosts
-    - /mnt/etc/resolv.conf
+
+    	i. /mnt/etc/network/interfaces
+    	ii. /mnt/etc/hosts
+    	iii. /mnt/etc/resolv.conf
 
 4. Chroot into target disk/OS
 
