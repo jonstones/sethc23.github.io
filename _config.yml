@@ -120,8 +120,8 @@ markdown:                       kramdown
 kramdown:
   input:                        GFM
   auto_ids:                     true
-  auto_id_prefix:               true
-  auto_id_stripping:            true
+  auto_id_prefix:               ''
+  auto_id_stripping:            false
   auto_ids:                     true
   footnote_nr:                  1
   entity_output:                as_char
