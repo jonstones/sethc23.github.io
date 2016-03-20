@@ -9,3 +9,5 @@
 ### To Do ([realms](http://wiki.sanspaper.com/)):
 - [ ] link to return previous page
 - [ ] add handling for front matter
+	- new blog entries
+	- editting blog entries
