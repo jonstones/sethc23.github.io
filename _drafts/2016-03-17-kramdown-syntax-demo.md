@@ -11,9 +11,9 @@ comments: true
 4. [List items](#list-items)
 5. [Definition Lists](#definition-lists)
 6. [Tables](#tables)
-7. [HTML elements](#html-elements)
-8. [Links and Images](#links-and-images)
-9. [Inline attributes](#inline-attributes)
+7. [Links and Images](#links-and-images)
+8. [Inline attributes](#inline-attributes)
+9. [HTML elements](#html-elements)
 10. [Footnotes](#footnotes)
 
 
@@ -139,22 +139,7 @@ b)
 |-----------------+------------+-----------------+----------------|
 
 
-## 7. HTML elements
-
-<div style="float: right">
-Something that stays right and is not wrapped in a para.
-</div>
-
-{::options parse_block_html="true" /}
-
-<div>
-This is wrapped in a para.
-</div>
-<p>
-This can contain only *span* level elements.
-</p>
-
-## 8. Links and images
+## 7. Links and images
 
 [referenced-link-with-attributes]: https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg
 {:height="36px" width="36px"}
@@ -172,7 +157,7 @@ This can contain only *span* level elements.
 {: rules="groups"}
 \* requires using kramdown settings: {'auto_ids' : true, 'auto_id_prefix': ''}
 
-## 9 Inline attributes
+## 8. Inline attributes
  
 |Result|Code|
 |---
@@ -184,6 +169,20 @@ This can contain only *span* level elements.
 | ----
 | This *is*{:.underline} some `code`{:#id}{:.class}. | ```This *is*{:.underline} some `code`{:#id}{:.class}.``` |
 {: rules="groups"}
+
+## 9. HTML elements
+
+<div style="float: right">
+Something that stays right and is not wrapped in a para.
+</div>
+
+
+<div>
+This is wrapped in a para.
+</div>
+<p>
+This can contain only *span* level elements.
+</p>
 
 
 ## 10. Footnotes
