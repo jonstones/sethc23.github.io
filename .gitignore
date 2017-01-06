@@ -10,3 +10,6 @@ ENV/*
 *pyc
 _OLD/
 _data/check_build_status*
+Gemfile.lock
+_data/wiki.csv
+.jekyll-metadata
