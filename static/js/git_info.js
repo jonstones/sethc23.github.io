@@ -26,6 +26,16 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
         var list = $('<div id="all-hidden-repos" class="repos">');
         target.empty().append(list);
 
+        // var select_repos = [];
+        // $(repos).each(function () {
+        //     if(
+        //             this.fork==false
+        //        &&   this.private==false
+        //        ){
+        //         select_repos.push(this);
+        //     };
+        // });
+
         $(repos).each(function () {
             if (this.name != (username.toLowerCase() + '.github.com')) {
                 var repo_name = this.name;
@@ -36,7 +46,11 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
                 _row = _row + '<a href="' + (this.homepage ? this.homepage : this.html_url) + '">' + this.name + '</a>';
                 _row = _row + '<em>' + (this.language ? this.language : '') + '</em>';
                 _row = _row + '</h2>';
-                _row = _row + '<p>' + this.description + '</p>';
+                if(this.description === null){
+                    _row = _row + '<p>(no description)</p>';
+                } else {
+                    _row = _row + '<p>' + this.description + '</p>';
+                }
 
                 $.githubRepo(token, username, repo_name, function (moreData) {
                     var repoinfo = moreData.data;
@@ -44,6 +58,7 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
                         && repoinfo.fork == false
                     //&& repoinfo.name!='sethc23.github.io'
                     ) {
+                        // console.log(repoinfo)
                         r_list.append(_row);
                         var r_list_branches = $('');
 
@@ -72,11 +87,13 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
                             r_list.append(tbl_list);
                         });
                         list.append(r_list);
-                        if (repo_name == repos[repos.length - 1].name) {
-                            list.append('<div id="hidden_content_end"/>');
-                        }
+                        // console.log('chk:',repo_name,select_repos[select_repos.length - 1].name)
+                        // if (repo_name == select_repos[select_repos.length - 1].name) {
+                        //     list.append('<div id="hidden_content_end"/>');
+                        // }
                     }
                 });
+                list.append('<div id="hidden_content_end"/>');
             }
         });
     })
@@ -85,16 +102,16 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
 
 
 jQuery.fn.simpleCipher = function (codeType, msg) {
-    
+
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890";
     var key = "09876543210zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA";
-    
+
     function simple_encode(message)
         // Given  : message is the string to be encoded using the key
-        // Returns: the coded version of message using the substitution key 
+        // Returns: the coded version of message using the substitution key
         {
             var coded, i, ch, index;
-            coded = "";                                      
+            coded = "";
             for (i = 0; i < message.length; i++) {        // for as many letters as there are
                 ch = message.charAt(i);                   //   access the letter in the message
                 index = alphabet.indexOf(ch);             //   find its position in alphabet
@@ -109,10 +126,10 @@ jQuery.fn.simpleCipher = function (codeType, msg) {
         }
     function simple_decode(message)
         // Given  : message is the string to be decoded using the key
-        // Returns: the decoded version of message using the substitution key 
+        // Returns: the decoded version of message using the substitution key
         {
             var coded, i, ch, index;
-            coded = "";                                      
+            coded = "";
             for (i = 0; i < message.length; i++) {             // for as many letters as there are
                 ch = message.charAt(i);                        //   access the letter in the message
                 index = key.indexOf(ch);                       //   find its position in key
@@ -146,7 +163,7 @@ jQuery.fn.firstGetLimitedRepoToken = function (username, target) {
     //     token = d.contents;
     // });
 
-    
+
     var token = $.fn.simpleCipher("decode",
                                   "khjFBigJIGiDjDFffCkCfEifCGhGGKCJCHiGFEDF");
 
@@ -309,6 +326,7 @@ jQuery.fn.sortRepositories = function (from_selector) {
 
     var target = this;
     var sorted_output = $('<div id="all-visible-repos" class="repos">');
+    // $('#loading_msg').remove();
     target.empty().append(sorted_output);
 
     handleData(rows);

@@ -13,3 +13,4 @@ _data/check_build_status*
 Gemfile.lock
 _data/wiki.csv
 .jekyll-metadata
+ENV

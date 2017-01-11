@@ -128,21 +128,18 @@ kramdown:
   smart_quotes:                 lsquo,rsquo,ldquo,rdquo
   enable_coderay:               false
 
-  coderay:
-    coderay_wrap:               div
-    coderay_line_numbers:       inline
-    coderay_line_number_start:  1
-    coderay_tab_width:          4
-    coderay_bold_every:         10
-    coderay_css:                style
-    coderay_default_lang:       markdown
-    coderay_line_number_start:  1           # default: 1
-    coderay_line_numbers:       inline      # :table, :inline or nil.
-    coderay_wrap:               div         # :span, :div or nil.
+  syntax_highlighter_opts:
+    css:                        style
+    wrap:                       div         # :span, :div or nil.
+    default_lang:               markdown
+    line_number_start:          1           # default: 1
+    line_numbers:               inline      # :table, :inline or nil.
+    bold_every:                 10
+    tab_width:                  4
+    hard_wrap:                  true
     entity_output:              as_input, numeric, symbolic, as_char (default)
     footnote_backlink:          ‘&8617;’    # default
     footnote_nr:                0           # number of first footnote
-    hard_wrap:                  true
     header_offset:              0           # default:0
     html_to_native:             false
     latex_headers:              section,subsection,subsubsection,paragraph,subparagraph,subparagraph
@@ -157,7 +154,7 @@ kramdown:
     smart_quotes:               lsquo,rsquo,ldquo,rdquo
     syntax_highlighter:         coderay
     # syntax_highlighter:         rouge
-    syntax_highlighter_opts:    {}
+    #syntax_highlighter_opts:    {}
     template:                   ''
     toc_levels:                 1..6
     transliterated_header_ids:  false
