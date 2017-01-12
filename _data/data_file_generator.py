@@ -1,4 +1,4 @@
-#!/home/ub2/.virtualenvs/devenv/bin/python
+#!env python
 """
 
 1. Sanitize all filenames, i.e., remove spaces
@@ -62,20 +62,20 @@ def sanitize_filenames(df):
     return df
 def sort_funct(df,sort_col='fname',sort_type=['leading_numeric', 'case_insensitive']):
     """
-        any number of the following options: 
+        any number of the following options:
             basic,
             leading_numeric,
-            datetime_modified, 
-            datetime_created, 
+            datetime_modified,
+            datetime_created,
             case_sensitive,
             case_insensitive
 
         examples:
-            
+
             sort_funct(['a.txt','b.txt'],'datetime_created')
-            
+
             sort_funct(['a.txt','b.txt'],['leading_numeric','case_sensitive','case_insensitive'])
-            
+
     """
     def date_modified(f_path):
         return time.ctime(os.path.getmtime(f_path))
@@ -83,19 +83,19 @@ def sort_funct(df,sort_col='fname',sort_type=['leading_numeric', 'case_insensiti
         return time.ctime(os.path.getctime(f_path))
 
     if sort_type!='basic':
-        
+
         sort_cols = ['_sort_case_sensitive',
                      '_sort_ext',
                      '_sort_case_insensitive',
                      '_sort_leading_numeric',
                      '_sort_datetime_created',
                      '_sort_datetime_modified']
-        
+
         df['_sort_case_sensitive'] = df[sort_col].map(lambda s: s[s.rfind('/')+1:])
         df['_sort_ext'] = df[sort_col].map(lambda s: s[s.rfind('.')+1:])
         df['_sort_case_insensitive'] = df[sort_col].map(lambda s: s.lower())
-        df['_sort_leading_numeric'] = df[sort_col].map(lambda s: None if 
-                                               not hasattr(re.search('^\d+',s),'group') 
+        df['_sort_leading_numeric'] = df[sort_col].map(lambda s: None if
+                                               not hasattr(re.search('^\d+',s),'group')
                                                else int(re.search('^\d+',s).group()))
         df['_sort_datetime_created'] = df.fpath.map(date_created)
         df['_sort_datetime_modified'] = df.fpath.map(date_modified)
@@ -119,7 +119,7 @@ def remove_directory_markdowns(df):
         for it in f_list:
             os.system('rm -fr %s' % it)
     df = get_file_list()
-    return df    
+    return df
 def create_markdown_from_path(new_fpath,sorted_nf):
     nf,res = sorted_nf,[]
     for i,row in nf.iterrows():
@@ -130,7 +130,7 @@ def create_markdown_from_path(new_fpath,sorted_nf):
     return True
 def create_missing_markdown_indicies(df):
     """
-        Create markdowns in directory with files 
+        Create markdowns in directory with files
         but missing markdown with same title as directory.
     """
     h_cols = [it for it in df.columns.tolist() if it[0]=='h' and it[1].isdigit()]
@@ -167,7 +167,7 @@ def create_csv(df):
         sub_header_cols = ['h%s'%it for it in sorted(df.l_header_val.unique().tolist())]
         for c in sub_header_cols[1:]:
             idx = sub_header_cols.index(c)
-            nhf = sort_funct( df[(df[c]!=df.fname) &  
+            nhf = sort_funct( df[(df[c]!=df.fname) &
                                  (df[c].isnull()==False) &
                                  (df.l_header_val==idx+1)
                                  ].copy(),sort_col=c)
@@ -197,7 +197,7 @@ def create_csv(df):
                                     new_fpath.replace(base_ref_dir,'',1),
                                     '.md'])
         return new_content
-    
+
     link_created = []
     csv_content = 'idx,header_val,title,fname,fpath,f_ext\n'
     csv_templ = ','.join(['%s' for it in csv_content.split(',')])
@@ -207,13 +207,13 @@ def create_csv(df):
     # with sub-directories
     # For each Directory with markdowns
     # For each directory with other files not referenced in
-    
+
     # Create Info for CSV out
     df['l_fpath'] = df.fpath.map(lambda s: s.replace(base_ref_dir,'',1))
     df['l_fname'] = df.fname#.map(lambda s: s if not s.count('.') else s[:s.rfind('.')])
     df['l_title'] = df.l_fname.map(lambda s: s.replace('_',' ') if not s.count('.') else s[:s.rfind('.')].replace('_',' '))
     df['l_header_val'] = df.apply(lambda s: 1,axis=1)
-    
+
     # Update Header Vals
     h_cols = [it for it in df.columns.tolist() if it[0]=='h' and it[1].isdigit()]
     h_pt = 1
@@ -221,12 +221,12 @@ def create_csv(df):
         h_pt += 1
         n = df[df[c]==df.fname].index.tolist()
         ndf = df[df.index.isin(n)].copy()
-        z = ndf.fname.map(lambda d: h_pt-1) 
+        z = ndf.fname.map(lambda d: h_pt-1)
         ndf['l_header_val'] = z
         df[df.index.isin(n)] = ndf
-    
+
     first_header_col = 'h1'
-    hf = sort_funct( df[(df[first_header_col]!=df.fname) & 
+    hf = sort_funct( df[(df[first_header_col]!=df.fname) &
                         (df[first_header_col].isnull()==False)].copy(),
                    sort_col=first_header_col)
     h_unique = hf[first_header_col].unique().tolist()
@@ -239,13 +239,14 @@ def create_csv(df):
             d = nf[nf.fname==h_title+'.md']
             r = d.loc[d.first_valid_index()]
         except:
-            import ipdb as I; I.set_trace()
             print(''.join(['Could not find "%s" in %s.\n',
-                           'Consider using function ',
-                           '"create_missing_markdown_indicies."']) % 
-                  (h_title+'.md',base_ref_dir + h_title))
+                          'Consider using function ',
+                          '"create_missing_markdown_indicies."'])
+                    % (h_title+'.md',base_ref_dir + h_title))
+            # create_markdown_from_path('%s/%s/%s.md' % (base_ref_dir,h_title,h_title),nf)
+            import ipdb as I; I.set_trace()
             raise SystemExit
-        
+
         csv_content += str(csv_templ % (h_pt,r.l_header_val,
                                         r.l_title,
                                         r.l_fname,
@@ -253,7 +254,7 @@ def create_csv(df):
                                         r.f_ext)).rstrip(',') + '\n'
         h_pt += 1
         nf.drop(r.name,axis=0,inplace=True)
-            
+
         for it in get_markdown_content(nf,first_header_col,h_title):
             csv_content += str(csv_templ % tuple([h_pt] + it) ).rstrip(',') + '\n'
             h_pt += 1
@@ -314,7 +315,7 @@ def make_blog_csv():
 from sys import argv
 if __name__ == '__main__':
     args = argv[1:]
-    
+
     if argv[1]=='wiki':
         make_wiki_csv()
 

@@ -77,27 +77,46 @@ collections:
 #layouts_dir:                    ./_layouts
 #data_dir:                       ./_data
 #includes_dir:                   ./_includes
-#collections:                    null
+# collections:                    null
+#   posts:
+#     output:   true
 
 # Handling Reading
-#safe:                           false
-#include:                        [".htaccess"]
-#exclude:                        []
-#keep_files:                     [".git", ".svn"]
-#encoding:                       "utf-8"
-#markdown_ext:                   "markdown,mkdown,mkdn,mkd,md"
+safe:                           false
+include:                        [".htaccess"]
+exclude:                        ["node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/"]
+keep_files:                     [".git", ".svn"]
+encoding:                       "utf-8"
+markdown_ext:                   "markdown,mkdown,mkdn,mkd,md"
 
 # Filtering Content
-#show_drafts:                    null
-#limit_posts:                    0
-#future:                         false
-#unpublished:                    false
+show_drafts:                    null
+limit_posts:                    0
+future:                         false
+unpublished:                    false
+
+# Plugins
+whitelist:                      []
+gems:                           [
+                                  "jekyll-sitemap"
+                                  ,"octopress-date-format"
+                                  ,"octopress-debugger"
+                                  ,"jekyll-paginate"
+                                ]
+
+# Conversion
+markdown:                       kramdown
+highlighter:                    rouge
+lsi:                            false
+excerpt_separator:              "\n\n"
+incremental:                    false
 
 # Serving
-#detach:                         false
+detach:                         false
 port:                           28901
-#host:                           0.0.0.0
-#baseurl:                        ""          # does not include hostname -- SEE TOP OF FILE
+host:                           0.0.0.0
+baseurl:                        "" # does not include hostname
+show_dir_listing:               false
 
 # Outputting
 #permalink:                      date
@@ -108,59 +127,72 @@ paginate_path:                  "page:num"
 timezone:                       America/New_York
 
 quiet:                          false
-# defaults:                       []
+verbose:                        false
+defaults:                       []
 
-lsi:                            false
-excerpt_separator:              "\n\n"
+liquid:
+  error_mode:                   warn
 
-# rdiscount:
-#   extensions:                   ["generate_toc"]
+# Markdown Processors
+rdiscount:
+  extensions:                   ["generate_toc"]
 
-markdown:                       kramdown
+redcarpet:
+  extensions:                   [
+                                "no_intra_emphasis"
+                                ,"tables"
+                                ,"fenced_code_blocks"
+                                ,"autolink"
+                                #,"disable_indented_code_blocks"
+                                ,"strikethrough"
+                                ,"lax_spacing"
+                                ,"space_after_headers"
+                                ,"superscript"
+                                ,"underline"
+                                ,"highlight"
+                                ,"quote"
+                                ,"footnotes"
+                                ]
+
 kramdown:
-  input:                        GFM
-  auto_ids:                     true
   auto_id_prefix:               ''
   auto_id_stripping:            false
-  footnote_nr:                  1
-  entity_output:                as_char
-  toc_levels:                   1..6
+  auto_ids:                     true
+  coderay_bold_every:           10
+  coderay_css:                  style
+  # coderay_css:                  static/css/ub4.css
+  # enable_coderay:               true
+  syntax_highlighter:           coderay
+  # coderay_default_lang:         markdown
+  coderay_line_number_start:    1           # default: 1
+  coderay_line_numbers:         nil         # :table, :inline or nil.
+  coderay_tab_width:            4
+  coderay_wrap:                 div         # :span, :div or nil.
+  entity_output:                as_input    # as_input, numeric, symbolic, as_char (default)
+  footnote_backlink:            ‘&8617;’    # default
+  footnote_nr:                  1           # number of first footnote
+  gfm_quirks:                   ["paragraph_end"]
+  hard_wrap:                    false
+  header_offset:                0           # default:0
+  html_to_native:               true
+  input:                        GFM
+  latex_headers:                section,subsection,subsubsection,paragraph,subparagraph,subparagraph
+  # line_width:                   72
+  link_defs:                    {}          # predefines link def.s
+  math_engine:                  {}
+  math_engine_opt:              {}
+  parse_block_html:             false
+  parse_span_html:              false
+  remove_block_html_tags:       false
+  remove_span_html_tags:        false
   smart_quotes:                 lsquo,rsquo,ldquo,rdquo
-  enable_coderay:               false
-
-  syntax_highlighter_opts:
-    css:                        style
-    wrap:                       div         # :span, :div or nil.
-    default_lang:               markdown
-    line_number_start:          1           # default: 1
-    line_numbers:               inline      # :table, :inline or nil.
-    bold_every:                 10
-    tab_width:                  4
-    hard_wrap:                  true
-    entity_output:              as_input, numeric, symbolic, as_char (default)
-    footnote_backlink:          ‘&8617;’    # default
-    footnote_nr:                0           # number of first footnote
-    header_offset:              0           # default:0
-    html_to_native:             false
-    latex_headers:              section,subsection,subsubsection,paragraph,subparagraph,subparagraph
-    line_width:                 72
-    link_defs:                  {} # predefines link def.s
-    math_engine:                {}
-    math_engine_opt:            {}
-    parse_block_html:           false
-    parse_span_html:            true
-    remove_block_html_tags:     true
-    remove_span_html_tags:      false
-    smart_quotes:               lsquo,rsquo,ldquo,rdquo
-    syntax_highlighter:         coderay
-    # syntax_highlighter:         rouge
-    #syntax_highlighter_opts:    {}
-    template:                   ''
-    toc_levels:                 1..6
-    transliterated_header_ids:  false
+  template:                     ''
+  toc_levels:                   1..6
+  transliterated_header_ids:    false
 
     # kramdown Syntax:          http://kramdown.gettalong.org/syntax.html
     # kramdown Quick Reference: http://kramdown.gettalong.org/quickref.html
+    # kramdown Options:         https://kramdown.gettalong.org/rdoc/Kramdown/Options.html
 
     # Set per-document Kramdown command-line options in file
     # {::options auto_ids="false" footnote_nr="5" /}
@@ -168,8 +200,3 @@ kramdown:
 # ------------------------------
 # ------------------------------
 
-gems:
-  - jekyll-sitemap
-  - octopress-date-format
-  - octopress-debugger
-  - jekyll-paginate

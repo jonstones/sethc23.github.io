@@ -1,4 +1,4 @@
-#!/home/ub2/BD_Scripts/sethc23.github.io/ENV/bin/python
+#!env python
 # PYTHON_ARGCOMPLETE_OK
 from os                                         import environ                  as os_environ
 from sys                                        import path                     as py_path

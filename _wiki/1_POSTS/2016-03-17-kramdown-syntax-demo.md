@@ -1,31 +1,53 @@
----
-title: Kramdown Cheat Sheet
-layout: post
-comments: true
----
 
-## Table of Contents:
+* * *
+
+# Table of Contents:
+1. [Basic Formatting](#formatting)
 1. [Paragraphs](#paragraphs)
 2. [Block quotes](#block-quotes)
 3. [Code blocks](#code-items)
 4. [List items](#list-items)
 5. [Definition Lists](#definition-lists)
 6. [Tables](#tables)
-7. [HTML elements](#html-elements)
-8. [Links and Images](#links-and-images)
-9. [Inline attributes](#inline-attributes)
+7. [Links and Images](#links-and-images)
+8. [Inline attributes](#inline-attributes)
+9. [HTML elements](#html-elements)
 10. [Footnotes](#footnotes)
 
+* * *
 
+
+## 1. Formatting
+
+==Highlight==
+
+~~Strikethrough~~
+
+*Emphasis*
+
+**Strong**
+
+++Underline++
+
+[some link](https://pypi.python.org/static/images/python-logo.png)
+
+- [ ] tasks
+
+Page Break:
+* * *
+Section Break:
 - - -
+Sentence break:
+_ _ _
 
 
-## 1. Paragraphs
+
+## 2. Paragraphs
 A simple paragraph with an ID attribute.
 {: #para-one}
 
-## 2. Block quotes
- 
+## 3. Block quotes
+
 > A blockquote with a title
 {:title="The blockquote title"}
 {: #myid}
@@ -38,23 +60,24 @@ A simple paragraph with an ID attribute.
 > This is the outer quote again.
 * {:.cls} This item has the class "cls"
 
-## 3. Code Blocks
+## 4. Code Blocks
 
-a) 
+a)
 
 This is a sample code block.
 
     Continued here.
 
-b) 
+b)
 
 ~~~~~~
 This is also a code block.
+~~~~~~
 ~~~
 Ending lines must have at least as
 many tildes as the starting line.
-~~~~~~~~~~~~
- 
+~~~
+
 c)
 
 ~~~ ruby
@@ -66,11 +89,11 @@ end
 d)
 
 {:.ruby}
-    Some code her
+    Some code here
 
 
-## 4. List Items
- 
+## 5. List Items
+
 1.  This is a list item
 
     > with a blockquote
@@ -79,10 +102,10 @@ d)
 
 2.  Followed by another item
 
-## 5. Definition Lists
+## 6. Definition Lists
 
 a)
- 
+
 term
 : definition
 : another definition
@@ -92,14 +115,14 @@ and another term
 : and a definition for the term
 
 b)
- 
+
 term
 
 : definition
 : definition
 
 c)
- 
+
 This *is* a term
 
 : This will be a para
@@ -107,8 +130,8 @@ This *is* a term
   > a blockquote
 
   # A header
- 
-## 6. Tables
+
+## 7. Tables
 
 a)
 
@@ -139,21 +162,6 @@ b)
 |-----------------+------------+-----------------+----------------|
 
 
-## 7. HTML elements
-
-<div style="float: right">
-Something that stays right and is not wrapped in a para.
-</div>
-
-{::options parse_block_html="true" /}
-
-<div>
-This is wrapped in a para.
-</div>
-<p>
-This can contain only *span* level elements.
-</p>
-
 ## 8. Links and images
 
 [referenced-link-with-attributes]: https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg
@@ -165,15 +173,15 @@ This can contain only *span* level elements.
 | ----
 | links to documents elements such as the [Table of Contents](#table-of-contents) | `links to documents elements* such as the [Table of Contents](#table-of-contents)` |
 | ----
-|here is an inline image with size attributes ![smiley](https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg){:height="36px" width="36px"}|`here is an inline image with size attributes ![smiley](https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg){:height="36px" width="36px"}`|
+|here is an inline image with size attributes ![smiley](https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg){:height="16px" width="16px"}|`here is an inline image with size attributes ![smiley](https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg){:height="36px" width="36px"}`|
 | ----
 |  better practice may be to create a reference... | `[referenced-link-with-attributes]: https://s-media-cache-ak0.pinimg.com/736x/36/1f/a2/361fa2246dc78579fca544e3b6c12c1c.jpg {:height="36px" width="36px"}` |
 | ...and later using the defined reference: ![referenced-link-with-attributes] | `and later using the defined reference: ![referenced-link-with-attributes]`  |
 {: rules="groups"}
 \* requires using kramdown settings: {'auto_ids' : true, 'auto_id_prefix': ''}
 
-## 9 Inline attributes
- 
+## 9. Inline attributes
+
 |Result|Code|
 |---
 |This is <span style="color: red">written in red</span>.|`This is <span style="color: red">written in red</span>.`|
@@ -185,8 +193,22 @@ This can contain only *span* level elements.
 | This *is*{:.underline} some `code`{:#id}{:.class}. | ```This *is*{:.underline} some `code`{:#id}{:.class}.``` |
 {: rules="groups"}
 
+## 10. HTML elements
 
-## 10. Footnotes
+<div style="float: right">
+Something that stays right and is not wrapped in a para.
+</div>
+
+
+<div>
+This is wrapped in a para.
+</div>
+<p>
+This can contain only *span* level elements.
+</p>
+
+
+## 11. Footnotes
 
  This is some text.[^1]. Other text.[^footnote].
 
@@ -205,5 +227,3 @@ This can contain only *span* level elements.
         this is now a code block (8 spaces indentation)
 
 
-
----

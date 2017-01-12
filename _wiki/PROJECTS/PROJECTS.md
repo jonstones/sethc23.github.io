@@ -1,0 +1,3 @@
+---
+- [character analysis.md](PROJECTS/character_analysis.md)
+- [doc analysis.md](PROJECTS/doc_analysis.md)

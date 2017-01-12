@@ -26,16 +26,6 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
         var list = $('<div id="all-hidden-repos" class="repos">');
         target.empty().append(list);
 
-        // var select_repos = [];
-        // $(repos).each(function () {
-        //     if(
-        //             this.fork==false
-        //        &&   this.private==false
-        //        ){
-        //         select_repos.push(this);
-        //     };
-        // });
-
         $(repos).each(function () {
             if (this.name != (username.toLowerCase() + '.github.com')) {
                 var repo_name = this.name;
@@ -58,7 +48,6 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
                         && repoinfo.fork == false
                     //&& repoinfo.name!='sethc23.github.io'
                     ) {
-                        // console.log(repoinfo)
                         r_list.append(_row);
                         var r_list_branches = $('');
 
@@ -87,10 +76,6 @@ jQuery.fn.getRepoInfo = function (token, username, target) {
                             r_list.append(tbl_list);
                         });
                         list.append(r_list);
-                        // console.log('chk:',repo_name,select_repos[select_repos.length - 1].name)
-                        // if (repo_name == select_repos[select_repos.length - 1].name) {
-                        //     list.append('<div id="hidden_content_end"/>');
-                        // }
                     }
                 });
                 list.append('<div id="hidden_content_end"/>');
@@ -326,7 +311,6 @@ jQuery.fn.sortRepositories = function (from_selector) {
 
     var target = this;
     var sorted_output = $('<div id="all-visible-repos" class="repos">');
-    // $('#loading_msg').remove();
     target.empty().append(sorted_output);
 
     handleData(rows);
