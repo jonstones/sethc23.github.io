@@ -161,7 +161,6 @@ kramdown:
   coderay_bold_every:           10
   coderay_css:                  style
   # coderay_css:                  static/css/ub4.css
-  # enable_coderay:               true
   syntax_highlighter:           coderay
   # coderay_default_lang:         markdown
   coderay_line_number_start:    1           # default: 1

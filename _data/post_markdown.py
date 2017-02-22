@@ -3,7 +3,7 @@
 from os                                         import environ                  as os_environ
 from sys                                        import path                     as py_path
 py_path.append(                                 os_environ['HOME'] + '/.scripts')
-from system_argparse                            import *
+from sysparse                                   import *
 from subprocess                                 import Popen                    as sub_popen
 from subprocess                                 import PIPE                     as sub_PIPE
 from re                                         import sub                      as re_sub

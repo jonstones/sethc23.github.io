@@ -8,13 +8,15 @@ do-release-upgrade -d  // dev version
 
 ## Other Cases:
 
-1. Format and Partition Hard Disk
-	`gparted`
-    	- making first partition with:
-    		- fat32 format
-    		- 'boot' and 'esp' flags
-        - including an extra partition for persistence later
-        - likely use `ext4` for linux
+1. Format and Partition Hard Disk	`gparted`
+
+  - making first partition with:
+  
+    - fat32 format
+    - 'boot' and 'esp' flags
+    - including an extra partition for persistence later
+    - likely use `ext4` for linux (or, for USB/SD. the non-journaled file system `ext2`), 
+
 
 2. Bootstrap the OS
 	
@@ -30,13 +32,20 @@ do-release-upgrade -d  // dev version
 		- $RELEASE, e.g., wily
 		- $MNT, e.g., /mnt
 		- $URL_SRC, e.g., http://archive.ubuntu.com/ubuntu
+
+
 3. Prepare to chroot
-    a. `sysctl kernel.hostname=NEW_HOSTNAME`
-	b. Plan on copying fstab to target disk and using blkid to identify target disk UUID that will replace fstab source disk UUID
+
+  a.  `sysctl kernel.hostname=NEW_HOSTNAME`
+  
+  b. Plan on copying fstab to target disk and using blkid to identify target disk UUID that will replace fstab source disk UUID
+	
 	c. Consider copying network info before rebooting:
-    	- /mnt/etc/network/interfaces
-		- /mnt/etc/hosts
-		- /mnt/etc/resolv.conf
+	  
+    - /mnt/etc/network/interfaces
+    - /mnt/etc/hosts
+    - /mnt/etc/resolv.conf
+
 
 4. Chroot into target disk/OS
 

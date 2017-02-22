@@ -1,9 +1,9 @@
 
 
 ## Evolution of Bits to Characters and the Evolution of Unicode:
-- [ASCII table](http://www.asciitable.com/)
-- [Unicode includes ASCII](https://en.wikipedia.org/wiki/ASCII#Unicode)
-- [and Extends]()
+1. [ASCII table](http://www.asciitable.com/)
+1. [Unicode includes ASCII](https://en.wikipedia.org/wiki/ASCII#Unicode)
+1. and [Extends](http://www.unicode.org/charts/)
 
 
 ## BASIC TESTING
