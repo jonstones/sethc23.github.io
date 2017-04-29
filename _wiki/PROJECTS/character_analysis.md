@@ -27,7 +27,7 @@
 
 ### CHARACTER ENCODING (a.k.a. "CODEC") RECOGITION
 - `uchardet` - C-based binding for universal charset detection library by Mozilla
-- python[3]-`chardet`
+- python[3]-chardet
 - python[3]-libguess
 - `tcs` - pan-pacific character set encoding
 - `uniutils` - character encoding and font identification analysis
