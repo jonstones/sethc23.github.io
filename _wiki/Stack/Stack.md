@@ -1,6 +1,7 @@
 ---
 - [elasticsearch-Elasticsearch Server 2d.pdf](Stack/elasticsearch-Elasticsearch_Server_2d.pdf)
-- [Emacs_Command_Summary.pdf](Emacs_Command_Summary.pdf)
+
+- [Emacs Command Summary.pdf](Stack/Emacs_Command_Summary.pdf)
 - [github-cheat-sheet-en.pdf](Stack/git-github-cheat-sheet-en.pdf)
 - [git-progit-en.252.pdf](Stack/git-progit-en.252.pdf)
 
@@ -16,7 +17,7 @@
 - [pgSQL-date patterns.pdf](Stack/pgSQL-date_patterns.pdf)
 - [pgSQL-Packt.PostgreSQL.Server.Programming.Jun.2013.ISBN.1849516987.pdf](Stack/pgSQL-Packt.PostgreSQL.Server.Programming.Jun.2013.ISBN.1849516987.pdf)
 
-- [syslog-ng-A_How_to_Guide_on_Modern_Monitoring_and_Alerting_-_DevOps.comDevOps.pdf](syslog-ng-A_How_to_Guide_on_Modern_Monitoring_and_Alerting_-_DevOps.comDevOps.pdf)
+- [syslog-ng-A_How_to_Guide_on_Modern_Monitoring_and_Alerting_-_DevOps.comDevOps.pdf](Stack/syslog-ng-A_How_to_Guide_on_Modern_Monitoring_and_Alerting_-_DevOps.comDevOps.pdf)
 - [syslog-ng-3.0.pdf](Stack/syslog-ng-3.0.pdf)
 - [syslog-ng-3.6.pdf](Stack/syslog-ng-3.6.pdf)
 - [syslog-ng-tutorial-mutual-auth-tls.pdf](Stack/syslog-ng-tutorial-mutual-auth-tls.pdf)

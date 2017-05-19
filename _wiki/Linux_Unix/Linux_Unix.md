@@ -41,7 +41,6 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 - [1unix linux ref.pdf](Linux_Unix/1unix_linux_ref.pdf)
 - [BashStartupFiles1.png](Linux_Unix/BashStartupFiles1.png)
 - [cliclick.png](Linux_Unix/cliclick.png)
-- [Emacs Command Summary.pdf](Linux_Unix/Emacs_Command_Summary.pdf)
 - [linux commands.pdf](Linux_Unix/linux_commands.pdf)
 - [Linux Manual.pdf](Linux_Unix/Linux_Manual.pdf)
 - [Log Aggregation and Tools.md](Linux_Unix/Log_Aggregation_and_Tools.md)
