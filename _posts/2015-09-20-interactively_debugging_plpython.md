@@ -3,7 +3,6 @@ title: Interactively_Debugging_Plpython
 layout: post
 comments: true
 ---
----
 title: Interactive-Debugging of PL/Python
 layout: post
 comments: true
