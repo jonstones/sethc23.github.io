@@ -3,7 +3,27 @@ title: Interactive-Debugging of PL/Python
 layout: post
 comments: true
 ---
-#### Use an IDE (PyCharm, WingIDE, Eclipse, etc..):
+** -- Updated 2017.10.03)**
+
+### 1. Setup Environment
+- recommend compiling postgreSQL with virtual environment interpreter:
+  
+  ```bash
+  PYTHON_EXEC="some/python/exec/created/by/virtualenv"
+  
+  ./configure PYTHON="$PYTHON_EXEC --with-python ..."
+  
+  make
+  sudo make install
+  (etc...)
+  ```
+
+- also recommend storing reusable functions in pgSQL's global dictionary GD (See more [here](https://www.postgresql.org/docs/8.2/static/plpython-funcs.html#AEN41829))
+
+
+
+
+#### a. Using an IDE (PyCharm, WingIDE, Eclipse, etc..):
 ```python
 import sys
 sys.path.append('/usr/local/lib/python2.7/dist-packages/pycharm-debug.egg')
@@ -12,7 +32,7 @@ pydevd.settrace('10.0.1.53', port=50003, stdoutToServer=True, stderrToServer=Tru
 ```
 ---
 
-#### iPython and ipdb
+#### b. iPython and ipdb
 
 ###### Embed iPython kernel in script (e.g., immediately preceeding a function `f(x)`):
 ```python
