@@ -4,10 +4,7 @@ layout: post
 comments: true
 
 ---
-
-** ( Updated 2017.10.03 ) **
-
-### 1. Setup Environment
+### 1. Setup Environment  ( updated __2017.10.03__ ) 
 - recommend compiling postgreSQL with virtual environment interpreter:
   
   ```bash
