@@ -1,4 +1,5 @@
-#!env python
+#!/home/ub2/.virtualenvs/blog/bin/python
+
 """
 
 1. Sanitize all filenames, i.e., remove spaces
