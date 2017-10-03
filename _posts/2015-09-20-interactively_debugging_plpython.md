@@ -7,7 +7,6 @@ comments: true
 title: Interactive-Debugging of PL/Python
 layout: post
 comments: true
-
 ---
 ### 1. Setup Environment  ( updated __2017.10.03__ ) 
 - recommend compiling postgreSQL with virtual environment interpreter:
