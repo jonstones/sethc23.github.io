@@ -1,4 +1,5 @@
-First, mapping keys in some cases could be avoided by changing settings for keyboard behavoir. Settings on the Profiles tab, it may be useful to map one of the Option keys to ESC as show below for left option.
+First, mapping keys in some cases could be avoided by changing settings for keyboard behavoir.
+Settings on the Profiles tab, it may be useful to map one of the Option keys to ESC as show below for left option.
 
 !(keycode_option_as_esc)
 
