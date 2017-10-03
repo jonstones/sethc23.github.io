@@ -11,9 +11,9 @@ ENV/*
 _OLD/
 _data/check_build_status*
 Gemfile.lock
-_data/wiki.csv
 .jekyll-metadata
 ENV
 _ENV
 LOCAL_README.md
 blog.sublime-workspace
+*.sublime-*
