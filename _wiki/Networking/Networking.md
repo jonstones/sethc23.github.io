@@ -43,34 +43,36 @@ https://www.dd-wrt.com/wiki/index.php/IPv6_startup_script
 - MTR
 - `tracepath6`
 
-```bash
+```markdown
 [ -f /proc/net/if_inet6 ] \
   && echo 'IPv6 ready system!' \
   || echo 'No IPv6 support found! Compile the kernel!!'
 ```
 
-## [Tor (www.torproject.org)](https://gitweb.torproject.org/tor.git) & [OnionCat](https://www.cypherpunk.at/ocat/download/Source/current/)
+### Tor ([info](www.torproject.org),[git](https://gitweb.torproject.org/tor.git)) & [OnionCat](https://www.cypherpunk.at/ocat/download/Source/current/)
 - port 9050, (9150 for tor web browser)
 
+### TunnelBroker
+#### UPDATE
+
+######   auto-detect ipv4
+- `https://<USERNAME>:<PASSWORD>@ipv4.tunnelbroker.net/nic/update?hostname=<TUNNEL_ID>`
+- `https://ipv4.tunnelbroker.net/nic/update?username=<USERNAME>&password=<PASSWORD>&hostname=<TUNNEL_ID>`
+
+######   manual ipv4 input
+`https://<USERNAME>:<PASSWORD>@ipv4.tunnelbroker.net/nic/update?hostname=<TUNNEL_ID>&myip=<IP ADDRESS>`
+`https://ipv4.tunnelbroker.net/nic/update?username=<USERNAME>&password=<PASSWORD>&hostname=<TUNNEL_ID>&myip=<IP ADDRESS>`
+
+######   EXAMPLES
 ``` bash
+curl "https://ipv4.tunnelbroker.net/nic/update?username=sethc23&password=PASSWORD&hostname=382960"
+```
+``` bash
+curl "https://sethc23:PASSWORD@ipv4.tunnelbroker.net/nic/update?hostname=382960"
+```
 
-# UPDATE
-#   auto-detect ipv4
-https://<USERNAME>:<PASSWORD>@ipv4.tunnelbroker.net/nic/update?hostname=<TUNNEL_ID>
-https://ipv4.tunnelbroker.net/nic/update?username=<USERNAME>&password=<PASSWORD>&hostname=<TUNNEL_ID>
-
-#   manual ipv4 input
-https://<USERNAME>:<PASSWORD>@ipv4.tunnelbroker.net/nic/update?hostname=<TUNNEL_ID>&myip=<IP ADDRESS>
-https://ipv4.tunnelbroker.net/nic/update?username=<USERNAME>&password=<PASSWORD>&hostname=<TUNNEL_ID>&myip=<IP ADDRESS>
-
-https://sethc23:ferrarif50@ipv4.tunnelbroker.net/nic/update?hostname=382960
-https://ipv4.tunnelbroker.net/nic/update?username=sethc23&password=ferrarif50&hostname=382960
-
-curl https://sethc23:e21EiPslrm+LorAn@ipv4.tunnelbroker.net/nic/update?hostname=382960
-
-http[s]://[TB_USER:TB_PASS@]tunnelbroker.net/nic/update?[username=TB_USER&password=TB_PASS&]hostname=<TUNNEL_ID|tunnelTUNNEL_ID.tunnelbroker.net|TB_USER-TUNNEL_LABEL.tserv#.LOC#.ipv6.he.net>[&myip=IPV4]
-
-# CONFIG
+#### SERVER CONFIG
+```bash
 ip tunnel add he-ipv6 mode sit remote 209.51.161.14 local 66.249.83.220 ttl 255
 ip link set he-ipv6 up mtu 1480
 ip -6 addr add 2001:470:1f06:1364::2/64 dev he-ipv6
